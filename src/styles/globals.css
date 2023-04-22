@@ -48,3 +48,20 @@ body {
   padding: 0 1rem;
   margin: 0 auto;
 }
+
+.wrapper.front {
+  margin: 3em auto;
+}
+
+.front button {
+  padding: 0.7em 1em;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.link--dashboard {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: var(--blue);
+}
