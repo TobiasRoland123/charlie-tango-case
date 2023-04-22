@@ -22,7 +22,7 @@ export default function Home() {
       </div>
       <div className="wrapper">
         <h4>
-          <Anchor className="link--dashboard" href="#">
+          <Anchor className="link--dashboard" href="/dashboard">
             EDC Broker? Press here to see dashboard.
           </Anchor>
         </h4>

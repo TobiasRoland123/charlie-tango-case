@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
+import { estateTypes } from "@/data/estateTypes";
 
 export default function EstateDetails() {
   return (
@@ -9,10 +10,11 @@ export default function EstateDetails() {
         <title>Estate Details | EDC</title>
       </Head>
       <div className="wrapper">
-        <h1 className={styles.headline}>Hello MMD</h1>
+        <h1 className={styles.headline}>1. Estate Details</h1>
         <div className={styles.content}>
           <p>
-            To get started, edit <code>pages/index.js</code> and save to reload.
+            First off, let us know a little bit more about your estate by filing
+            out the details below.
           </p>
         </div>
         <div className={styles.content}>
@@ -34,8 +36,28 @@ export default function EstateDetails() {
           </p>
           <form action="/buyers" method="GET" className={styles.form}>
             <label>
+              <span className={styles.label}>Price</span>
+              <input name="price" type="number" required />
+            </label>
+            <label>
+              <span className={styles.label}>
+                Size in m<sup>2</sup>
+              </span>
+              <input name="size" type="number" required />
+            </label>
+            <label>
               <span className={styles.label}>Zip Code</span>
-              <input name="zipCode" required />
+              <input name="zipCode" type="number" maxLength={4} required />
+            </label>
+            <label>
+              <span className={styles.label}>Estate type</span>
+              <select>
+                {estateTypes.map((estate) => (
+                  <option key={estate.name} id={estate.id}>
+                    {estate.name}
+                  </option>
+                ))}
+              </select>
             </label>
             <button className={styles.button}>Submit</button>
           </form>
