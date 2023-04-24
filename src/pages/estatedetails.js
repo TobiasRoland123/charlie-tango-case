@@ -34,6 +34,7 @@ export default function EstateDetails() {
               building forms in Next.js
             </a>
           </p>
+          {/* Hvis der er Ændringer på denne side, skal vores gererede Object med de producerede værdier slettes. */}
           <form action="/buyers" method="GET" className={styles.form}>
             <label>
               <span className={styles.label}>Price</span>
