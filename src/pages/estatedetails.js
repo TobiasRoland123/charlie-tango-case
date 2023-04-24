@@ -2,8 +2,54 @@ import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import { estateTypes } from "@/data/estateTypes";
+import { InputNumber, Select } from "antd";
+import { useState } from "react";
 
 export default function EstateDetails() {
+  const [price, setPrice] = useState("");
+  const [size, setSize] = useState("");
+  const [zip, setZip] = useState("");
+  const [estateType, setEstateType] = useState("");
+
+  const priceChanged = (e) => {
+    console.log(e);
+    setPrice(e);
+  };
+
+  const sizeChanged = (e) => {
+    console.log(e);
+    setSize(e);
+  };
+
+  const zipChanged = (e) => {
+    console.log(e);
+    setZip(e);
+  };
+  const estateChanged = (e) => {
+    console.log(e);
+    console.log(estateTypes.length);
+    for (let i = 0; i < estateTypes.length; i++) {
+      if (e === estateTypes[i].name) {
+        console.log(
+          `i: ${i}, Estate type: ${estateTypes[i].name}, id: ${estateTypes[i].id}`
+        );
+        setEstateType(estateTypes[i].id);
+      }
+    }
+    // Loop setEstate med estateTypes for at finde id.
+  };
+
+  function onSubmit(e) {
+    e.preventDefault();
+    let estateDetails = {
+      price: price,
+      size: size,
+      zip: zip,
+      estatetype: estateType,
+    };
+
+    console.log(estateDetails);
+  }
   return (
     <>
       <Head>
@@ -35,32 +81,61 @@ export default function EstateDetails() {
             </a>
           </p>
           {/* Hvis der er Ændringer på denne side, skal vores gererede Object med de producerede værdier slettes. */}
-          <form action="/buyers" method="GET" className={styles.form}>
+          <form
+            onSubmit={onSubmit}
+            action=""
+            method="GET"
+            className={styles.form}
+          >
             <label>
               <span className={styles.label}>Price</span>
-              <input name="price" type="number" required />
+              <InputNumber
+                className={styles.formInput}
+                type="number"
+                onChange={priceChanged}
+                name="price"
+                value={price}
+                required
+              />{" "}
+              <span>dkk</span>
             </label>
             <label>
               <span className={styles.label}>
                 Size in m<sup>2</sup>
               </span>
-              <input name="size" type="number" required />
+              <InputNumber
+                className={styles.formInput}
+                name="size"
+                type="number"
+                onChange={sizeChanged}
+                value={size}
+                required
+              />
             </label>
             <label>
               <span className={styles.label}>Zip Code</span>
-              <input name="zipCode" type="number" maxLength={4} required />
+              <InputNumber
+                className={styles.formInput}
+                name="zipCode"
+                type="number"
+                onChange={zipChanged}
+                value={zip}
+                required
+              />
             </label>
             <label>
               <span className={styles.label}>Estate type</span>
-              <select>
+              <Select className={styles.formInput} onChange={estateChanged}>
                 {estateTypes.map((estate) => (
-                  <option key={estate.name} id={estate.id}>
+                  <Select.Option key={estate.name} id={estate.id}>
                     {estate.name}
-                  </option>
+                  </Select.Option>
                 ))}
-              </select>
+              </Select>
             </label>
-            <button className={styles.button}>Submit</button>
+            <button type="submit" className={styles.button}>
+              Submit
+            </button>
           </form>
         </div>
       </div>
