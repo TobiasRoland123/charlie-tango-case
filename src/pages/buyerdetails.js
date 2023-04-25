@@ -4,6 +4,7 @@ import styles from "./Home.module.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Skeleton } from "antd";
+import VisualSteps from "./components/VisualSteps";
 
 export default function EstateDetails(buyers) {
   const { query } = useRouter();
@@ -30,6 +31,7 @@ export default function EstateDetails(buyers) {
       <Head>
         <title>Buyer Details | EDC</title>
       </Head>
+      <VisualSteps current="1" />
       <div className="wrapper">
         <h1 className={styles.headline}>2. Buyer Details</h1>
         <div className={styles.content}>

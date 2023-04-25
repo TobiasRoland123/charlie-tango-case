@@ -5,6 +5,7 @@ import { estateTypes } from "@/data/estateTypes";
 import { InputNumber, Select } from "antd";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import VisualSteps from "./components/VisualSteps";
 
 export default function EstateDetails() {
   const [price, setPrice] = useState("");
@@ -62,6 +63,7 @@ export default function EstateDetails() {
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
+      <VisualSteps current="0" />
       <div className="wrapper">
         <h1 className={styles.headline}>1. Estate Details</h1>
         <div className={styles.content}>
