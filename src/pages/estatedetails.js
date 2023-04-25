@@ -42,10 +42,10 @@ export default function EstateDetails() {
   function onSubmit(e) {
     e.preventDefault();
     let estateDetails = {
-      price: price,
-      size: size,
-      zip: zip,
-      estatetype: estateType,
+      price,
+      size,
+      zip,
+      estateType,
     };
 
     console.log(estateDetails);
@@ -91,13 +91,15 @@ export default function EstateDetails() {
               <span className={styles.label}>Price</span>
               <InputNumber
                 className={styles.formInput}
-                type="number"
-                onChange={priceChanged}
                 name="price"
+                formatter={(value) =>
+                  `${value} DKK`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                }
+                parser={(value) => value.replace(/\s?DKK\s?|(\.)+/g, "")}
+                onChange={priceChanged}
                 value={price}
                 required
-              />{" "}
-              <span>dkk</span>
+              />
             </label>
             <label>
               <span className={styles.label}>
