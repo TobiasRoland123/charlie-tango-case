@@ -57,6 +57,10 @@ body {
   margin: 3em auto;
 }
 
+.wrapper.front a {
+  text-decoration: none;
+}
+
 .front button {
   padding: 0.7em 1em;
   font-size: 1.2em;
