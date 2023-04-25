@@ -3,6 +3,7 @@ import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { Skeleton } from "antd";
 
 export default function EstateDetails(buyers) {
   const { query } = useRouter();
@@ -33,7 +34,7 @@ export default function EstateDetails(buyers) {
         <h1 className={styles.headline}>2. Buyer Details</h1>
         <div className={styles.content}>
           {data.length === 0 ? (
-            <p>LOADING.......</p>
+            <Skeleton active />
           ) : (
             data.map((buyer) => <p key={buyer.id}>{buyer.maxPrice}</p>)
           )}
