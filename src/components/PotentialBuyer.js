@@ -1,7 +1,7 @@
 import { Card } from "antd";
 
 export default function PotentialBuyer(props) {
-  console.table(props.buyer);
+  // console.table(props.buyer);
 
   return (
     <>

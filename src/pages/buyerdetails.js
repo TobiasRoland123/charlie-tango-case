@@ -1,15 +1,18 @@
 import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Avatar, Card, Skeleton, Switch } from "antd";
+import { SellerInformation } from "./_app";
 import styles from "./Home.module.css";
 import PotentialBuyer from "@/components/PotentialBuyer";
-import VisualSteps from "./components/VisualSteps";
+import VisualSteps from "../components/VisualSteps";
+
 export default function EstateDetails(buyers) {
   const { query } = useRouter();
   const [data, setData] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
 
   useEffect(() => {
     setLoading(true);
@@ -23,9 +26,10 @@ export default function EstateDetails(buyers) {
       });
   }, [query]);
 
-  console.log(query.price);
+  // console.log(query.price);
+  // console.log(data);
+  console.log("Seller Details", sellerDetails);
 
-  console.log(data);
   return (
     <>
       <Head>
@@ -34,6 +38,12 @@ export default function EstateDetails(buyers) {
       <VisualSteps step={1} />
       <div className="wrapper">
         <h1 className={styles.headline}>2. Buyer Details</h1>
+        <div className={styles.content}>
+          <h2>Estate Details:</h2>
+          <p>Price: {sellerDetails.price}</p>
+          <p>Size: {sellerDetails.size}</p>
+          <p>Zip Code: {sellerDetails.zip}</p>
+        </div>
         <div className={styles.content}>
           {data.length === 0 ? (
             <Card style={{ width: 300, marginTop: 16 }}></Card>

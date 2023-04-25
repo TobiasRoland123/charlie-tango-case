@@ -3,17 +3,19 @@ import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import { estateTypes } from "@/data/estateTypes";
 import { InputNumber, Select } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import VisualSteps from "./components/VisualSteps";
+import VisualSteps from "../components/VisualSteps";
+import { SellerInformation } from "./_app";
 
 export default function EstateDetails() {
   //States
   const [price, setPrice] = useState("");
   const [size, setSize] = useState("");
   const [zip, setZip] = useState("");
-  const [zipValidator, setZipValidator] = useState();
+  const [zipValidator, setZipValidator] = useState("");
   const [estateType, setEstateType] = useState("");
+  const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
   let estateDetails;
 
   //Routers
@@ -54,7 +56,6 @@ export default function EstateDetails() {
         setEstateType(estateTypes[i].id);
       }
     }
-    // Loop setEstate med estateTypes for at finde id.
   };
 
   function onSubmit(e) {
@@ -69,10 +70,21 @@ export default function EstateDetails() {
     {
       !zipValidator.navn
         ? alert("ZipCode not Valid")
-        : router.push(
-            `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
-          );
+        : updateSellerInformation();
     }
+
+    function updateSellerInformation() {
+      setSellerDetails({
+        price: price,
+        size: size,
+        zip: zip,
+        estateType: estateType,
+      });
+      router.push(
+        `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
+      );
+    }
+    //Update useContext
   }
   return (
     <>

@@ -5,13 +5,13 @@ import {
   ContactsFilled,
   EditFilled,
 } from "@ant-design/icons";
-import styles from "../Home.module.css";
+import styles from "../pages/Home.module.css";
 
 export default function VisualSteps(props) {
   // console.log(props.current);
 
   function checkStatus(val) {
-    console.log("props.step:", props.step);
+    // console.log("props.step:", props.step);
     if (val < props.step) {
       return "finish";
     } else if (val === props.step) {
