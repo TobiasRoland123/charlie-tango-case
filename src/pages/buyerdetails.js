@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
-import styles from "./Home.module.css";
-import { useState, useEffect } from "react";
 
+import { useState, useEffect } from "react";
+import { Avatar, Card, Skeleton, Switch } from "antd";
+import styles from "./Home.module.css";
+import PotentialBuyer from "@/components/PotentialBuyer";
 export default function EstateDetails(buyers) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -27,9 +29,9 @@ export default function EstateDetails(buyers) {
         <h1 className={styles.headline}>2. Buyer Details</h1>
         <div className={styles.content}>
           {data.length === 0 ? (
-            <p>LOADING.......</p>
+            <Card style={{ width: 300, marginTop: 16 }}></Card>
           ) : (
-            data.map((buyer) => <p key={buyer.id}>{buyer.maxPrice}</p>)
+            data.map((buyer) => <PotentialBuyer buyer={buyer} key={buyer.id} />)
           )}
         </div>
       </div>
