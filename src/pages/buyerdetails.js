@@ -35,11 +35,7 @@ export default function EstateDetails(buyers) {
         <h1 className={styles.headline}>2. Buyer Details</h1>
         <div className={styles.content}>
           {data.length === 0 ? (
-<<<<<<< HEAD
-            <Skeleton active />
-=======
             <Card style={{ width: 300, marginTop: 16 }}></Card>
->>>>>>> Tobias-test-branch
           ) : (
             data.map((buyer) => <PotentialBuyer buyer={buyer} key={buyer.id} />)
           )}
