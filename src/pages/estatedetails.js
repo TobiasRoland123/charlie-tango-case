@@ -3,40 +3,54 @@ import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import { estateTypes } from "@/data/estateTypes";
 import { InputNumber, Select } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import VisualSteps from "./components/VisualSteps";
 
 export default function EstateDetails() {
+  //States
   const [price, setPrice] = useState("");
   const [size, setSize] = useState("");
   const [zip, setZip] = useState("");
+  const [zipValidator, setZipValidator] = useState();
   const [estateType, setEstateType] = useState("");
+  let estateDetails;
 
+  //Routers
   const router = useRouter();
 
+  //UseEffect for the ZipCode validator
+  useEffect(() => {
+    fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setZipValidator(data);
+      });
+  }, [zip]);
+
+  //Const for changing states
   const priceChanged = (e) => {
-    console.log(e);
+    // console.log(e);
     setPrice(e);
   };
 
   const sizeChanged = (e) => {
-    console.log(e);
+    // console.log(e);
     setSize(e);
   };
 
   const zipChanged = (e) => {
-    console.log(e);
+    // console.log(e);
     setZip(e);
   };
   const estateChanged = (e) => {
-    console.log(e);
-    console.log(estateTypes.length);
+    // console.log(e);
+    // console.log(estateTypes.length);
     for (let i = 0; i < estateTypes.length; i++) {
       if (e === estateTypes[i].name) {
-        console.log(
-          `i: ${i}, Estate type: ${estateTypes[i].name}, id: ${estateTypes[i].id}`
-        );
+        // console.log(
+        //   `i: ${i}, Estate type: ${estateTypes[i].name}, id: ${estateTypes[i].id}`
+        // );
         setEstateType(estateTypes[i].id);
       }
     }
@@ -45,18 +59,20 @@ export default function EstateDetails() {
 
   function onSubmit(e) {
     e.preventDefault();
-    let estateDetails = {
+    estateDetails = {
       price,
       size,
       zip,
       estateType,
     };
 
-    console.log(estateDetails);
-
-    router.push(
-      `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
-    );
+    {
+      !zipValidator.navn
+        ? alert("ZipCode not Valid")
+        : router.push(
+            `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
+          );
+    }
   }
   return (
     <>

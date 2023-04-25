@@ -8,7 +8,7 @@ import {
 import styles from "../Home.module.css";
 
 export default function VisualSteps(props) {
-  console.log(props.current);
+  // console.log(props.current);
 
   // function checkStatus(val) {
   //   console.log("props.current:", props.current);
