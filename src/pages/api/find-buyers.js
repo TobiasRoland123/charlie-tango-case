@@ -11,13 +11,17 @@ export default function handler(req, res) {
 
   // Find the zip code from the query parameters, and use it to generate a list of (fake) buyer profiles.
   const zipCode = parseInt(req.query.zipCode || "2100");
-  const profilesForZipCode = generateBuyerProfiles({
+  const price = parseInt(req.query.price);
+  const size = parseInt(req.query.size);
+  const profilesForParams = generateBuyerProfiles({
     zipCode,
+    price,
+    size,
   });
 
   // Set the cache headers, so that the response can be cached
   res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
 
   // Make sure to filter out profiles based on the other query parameters. e.g. minSize, maxPrice, etc.
-  return res.status(200).json(profilesForZipCode);
+  return res.status(200).json(profilesForParams);
 }

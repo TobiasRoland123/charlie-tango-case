@@ -4,12 +4,15 @@ import styles from "./Home.module.css";
 import { estateTypes } from "@/data/estateTypes";
 import { InputNumber, Select } from "antd";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function EstateDetails() {
   const [price, setPrice] = useState("");
   const [size, setSize] = useState("");
   const [zip, setZip] = useState("");
   const [estateType, setEstateType] = useState("");
+
+  const router = useRouter();
 
   const priceChanged = (e) => {
     console.log(e);
@@ -49,6 +52,10 @@ export default function EstateDetails() {
     };
 
     console.log(estateDetails);
+
+    router.push(
+      `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
+    );
   }
   return (
     <>
@@ -83,7 +90,7 @@ export default function EstateDetails() {
           {/* Hvis der er Ændringer på denne side, skal vores gererede Object med de producerede værdier slettes. */}
           <form
             onSubmit={onSubmit}
-            action=""
+            action="/buyerdetails"
             method="GET"
             className={styles.form}
           >

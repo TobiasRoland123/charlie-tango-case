@@ -2,20 +2,26 @@ import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function EstateDetails(buyers) {
+  const { query } = useRouter();
   const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/find-buyers")
+    fetch(
+      `/api/find-buyers?price=${query.price}&size=${query.size}&zipCode=${query.zipCode}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setData(data);
         setLoading(false);
       });
-  }, []);
+  }, [query]);
+
+  console.log(query.price);
 
   console.log(data);
   return (
