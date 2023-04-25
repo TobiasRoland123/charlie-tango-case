@@ -79,7 +79,7 @@ export default function EstateDetails() {
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
-      <VisualSteps current="0" />
+      <VisualSteps step={0} />
       <div className="wrapper">
         <h1 className={styles.headline}>1. Estate Details</h1>
         <div className={styles.content}>
