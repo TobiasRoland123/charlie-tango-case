@@ -2,9 +2,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "./Buyers.module.css";
 
-export default function Buyers(products) {
+export default function Buyers() {
   const { query } = useRouter();
-  console.log(products);
+
   return (
     <>
       <Head>
@@ -49,16 +49,4 @@ export default function Buyers(products) {
       </div>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const api = "http://localhost:3000/api/find-buyers";
-  const res = await fetch(api);
-  const data = await res.json();
-
-  return {
-    props: {
-      products: data,
-    },
-  };
 }
