@@ -4,6 +4,7 @@ import styles from "./Buyers.module.css";
 
 export default function Buyers() {
   const { query } = useRouter();
+
   return (
     <>
       <Head>
