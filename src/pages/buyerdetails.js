@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
-
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Avatar, Card, Skeleton, Switch } from "antd";
 import styles from "./Home.module.css";
 import PotentialBuyer from "@/components/PotentialBuyer";
+import VisualSteps from "./components/VisualSteps";
 export default function EstateDetails(buyers) {
   const { query } = useRouter();
   const [data, setData] = useState([]);
