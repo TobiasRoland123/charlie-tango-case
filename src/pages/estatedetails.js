@@ -46,13 +46,11 @@ export default function EstateDetails() {
     setZip(e);
   };
   const estateChanged = (e) => {
-    // console.log(e);
+    // console.log("hvad er e?", e.target);
+    // console.log(estateTypes[0].name);
     // console.log(estateTypes.length);
     for (let i = 0; i < estateTypes.length; i++) {
       if (e === estateTypes[i].name) {
-        // console.log(
-        //   `i: ${i}, Estate type: ${estateTypes[i].name}, id: ${estateTypes[i].id}`
-        // );
         setEstateType(estateTypes[i].id);
       }
     }

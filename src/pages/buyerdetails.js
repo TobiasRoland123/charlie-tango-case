@@ -3,6 +3,7 @@ import Anchor from "@/components/Header/Anchor";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import { Avatar, Card, Skeleton, Switch } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import { SellerInformation } from "./_app";
 import styles from "./Home.module.css";
 import PotentialBuyer from "@/components/PotentialBuyer";
@@ -17,12 +18,13 @@ export default function BuyerDetails(buyers) {
 
   useEffect(() => {
     setLoading(true);
+
+    //if !useContext.buyers ? "Fetch" : setData(useContext.buyers)
     fetch(
       `/api/find-buyers?price=${query.price}&size=${query.size}&zipCode=${query.zipCode}`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("beforeMap", data);
         {
           data.map((data) => (data.chosen = false));
         }
@@ -32,6 +34,12 @@ export default function BuyerDetails(buyers) {
         setLoading(false);
       });
   }, [query]);
+
+  function onSubmit() {
+    setSellerDetails({
+      buyers: [data],
+    });
+  }
 
   // console.log(query.price);
   // console.log(data);
@@ -54,9 +62,21 @@ export default function BuyerDetails(buyers) {
           </div>
           <div className={styles.content}>
             <h2>Chosen buyers</h2>
-            {data.map((buyer) =>
-              buyer.chosen ? <p key={buyer.id}>{buyer.id}</p> : ""
-            )}
+            <div className="chosen_container">
+              <ul>
+                {data.map((buyer) =>
+                  buyer.chosen ? (
+                    <li key={buyer.id}>
+                      <span>ID: {buyer.id}</span>
+                      <DeleteOutlined />
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+              <button>Sup bitches</button>
+            </div>
           </div>
         </div>
         <div className={`${styles.content} ${styles.buyerCards}`}>

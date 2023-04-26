@@ -73,3 +73,37 @@ body {
   left: 20px;
   color: var(--blue);
 }
+
+.buyer_card .ant-card {
+  min-height: 335px;
+}
+
+.buyer_card_chosen .ant-card,
+.buyer_card_chosen .ant-card-head-title {
+  background-color: var(--dusty-blue-light);
+  color: var(--dark-blue);
+}
+
+.buyer_card_chosen .anticon {
+  color: var(--hover);
+}
+
+.chosen_container {
+  display: none;
+}
+.chosen_container:has(li) {
+  display: block;
+}
+
+.chosen_container ul {
+  padding-left: 0.25em;
+}
+
+.chosen_container li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 5em;
+  padding: 0.3em 0.5em;
+  border: 1px solid var(--blue);
+}

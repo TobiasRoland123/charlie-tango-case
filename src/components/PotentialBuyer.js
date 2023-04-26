@@ -14,7 +14,11 @@ export default function PotentialBuyer(props) {
 
   return (
     <>
-      <article className="buyer_card">
+      <article
+        className={
+          !props.buyer.chosen ? "buyer_card" : "buyer_card buyer_card_chosen"
+        }
+      >
         <Card
           title={`Budget: ${props.buyer.maxPrice} DKK`}
           bordered={false}
@@ -32,12 +36,10 @@ export default function PotentialBuyer(props) {
               <p>Children: {props.buyer.children}</p>
             </>
           )}
-
-          <button className={styles.button}>Add buyer to list</button>
           {!props.buyer.chosen ? (
-            <CloseCircleOutlined className={styles.cardSelector} />
-          ) : (
             <CheckCircleOutlined className={styles.cardSelector} />
+          ) : (
+            <CloseCircleOutlined className={styles.cardSelector} />
           )}
         </Card>
       </article>
