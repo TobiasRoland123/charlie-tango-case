@@ -17,8 +17,6 @@ export default function PotentialBuyer(props) {
           <p>{props.buyer.description}</p>
 
           <p>{`${props.buyer.adults} Adults, and ${props.buyer.children} Children`}</p>
-
-          <p></p>
         </Card>
       </article>
     </>
