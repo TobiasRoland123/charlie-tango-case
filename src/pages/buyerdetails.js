@@ -22,7 +22,13 @@ export default function BuyerDetails(buyers) {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log("beforeMap", data);
+        {
+          data.map((data) => (data.chosen = false));
+        }
+        console.log("afterMap", data);
         setData(data);
+        // setData(data);
         setLoading(false);
       });
   }, [query]);

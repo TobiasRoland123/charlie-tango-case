@@ -11,13 +11,6 @@ export default function PotentialBuyer(props) {
   console.log("buyer", buyer);
 
   // Jeg ka' sku ikke rigtig få det til at spille.
-  function checkChosen() {
-    setBuyer((buyer) => ({
-      ...buyer,
-      chosen: true,
-    }));
-    console.log(buyer);
-  }
 
   return (
     <>
