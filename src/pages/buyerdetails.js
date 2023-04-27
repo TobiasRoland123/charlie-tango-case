@@ -14,7 +14,6 @@ export default function BuyerDetails(buyers) {
   const [data, setData] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
-  const buyerInfo = data;
 
   useEffect(() => {
     setLoading(true);
@@ -39,6 +38,27 @@ export default function BuyerDetails(buyers) {
     setSellerDetails({
       buyers: [data],
     });
+  }
+
+  function updateBuyers(id) {
+    console.log(id);
+    const updatedBuyers = data.map((buyer) => {
+      // console.log(buyer);
+      if (buyer.id === id && buyer.chosen === false) {
+        const newBuyer = { ...buyer };
+        newBuyer.chosen = true;
+        return newBuyer;
+        // buyer.chosen = true;
+      } else if (buyer.id === id && buyer.chosen === true) {
+        const newBuyer = { ...buyer };
+        newBuyer.chosen = false;
+        return newBuyer;
+      }
+      return buyer;
+    });
+
+    setData(updatedBuyers);
+    // console.log(data);
   }
 
   // console.log(query.price);
@@ -68,7 +88,11 @@ export default function BuyerDetails(buyers) {
                   buyer.chosen ? (
                     <li key={buyer.id}>
                       <span>ID: {buyer.id}</span>
-                      <DeleteOutlined />
+                      <DeleteOutlined
+                        onClick={() => {
+                          updateBuyers(buyer.id);
+                        }}
+                      />
                     </li>
                   ) : (
                     ""
@@ -83,7 +107,13 @@ export default function BuyerDetails(buyers) {
           {data.length === 0 ? (
             <Card style={{ width: 300, marginTop: 16 }}></Card>
           ) : (
-            data.map((buyer) => <PotentialBuyer buyer={buyer} key={buyer.id} />)
+            data.map((buyer) => (
+              <PotentialBuyer
+                buyer={buyer}
+                key={buyer.id}
+                updateBuyers={updateBuyers}
+              />
+            ))
           )}
         </div>
       </div>

@@ -8,16 +8,21 @@ export default function PotentialBuyer(props) {
   // console.table(props.buyer);
   const [buyer, setBuyer] = useState(props.buyer);
 
-  console.log("buyer", buyer);
+  const handleClick = (e) => console.log(e);
+  // e.buyer === true ? setBuyer((e.buyer = false)) : setBuyer((e.buyer = true)));
 
-  // Jeg ka' sku ikke rigtig få det til at spille.
+  // console.log("buyer", buyer);
 
   return (
     <>
       <article
+        buyer={props.buyer}
         className={
           !props.buyer.chosen ? "buyer_card" : "buyer_card buyer_card_chosen"
         }
+        onClick={() => {
+          props.updateBuyers(props.buyer.id);
+        }}
       >
         <Card
           title={`Budget: ${props.buyer.maxPrice} DKK`}
