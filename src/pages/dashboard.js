@@ -4,6 +4,8 @@ import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import { useState, useEffect } from "react";
+import SellerCard from "@/components/SellerCard";
+import { Avatar, Card, Skeleton, Switch } from "antd";
 
 export default function Dashboard() {
   const [sellers, setSellers] = useState("");
@@ -33,14 +35,18 @@ export default function Dashboard() {
             about them and their chosen buyers.
           </p>
         </div>
-        <div className={styles.content}>
+        <div className={`${styles.content}`}>
           <h2>Choose a seller</h2>
 
-          {sellers.map((seller) => (
-            <li key={seller.id}>
-              <p>{seller.name}</p>
-            </li>
-          ))}
+          <ul className={` ${styles.buyerCards}`}>
+            {sellers.length === 0 ? (
+              <Card style={{ width: 300, marginTop: 16 }}></Card>
+            ) : (
+              sellers.map((seller) => (
+                <SellerCard key={seller.id} seller={seller} />
+              ))
+            )}
+          </ul>
         </div>
       </div>
     </>
