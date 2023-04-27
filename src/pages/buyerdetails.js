@@ -15,6 +15,8 @@ export default function BuyerDetails(buyers) {
   const [Loading, setLoading] = useState(false);
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
 
+  const router = useRouter();
+
   useEffect(() => {
     setLoading(true);
 
