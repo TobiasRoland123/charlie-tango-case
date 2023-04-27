@@ -25,7 +25,9 @@ export default function PotentialBuyer(props) {
         }}
       >
         <Card
-          title={`Budget: ${props.buyer.maxPrice} DKK`}
+          title={`Budget: ${props.buyer.maxPrice
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK`}
           bordered={false}
           style={{
             width: 300,
@@ -39,9 +41,9 @@ export default function PotentialBuyer(props) {
             <>
               <p>Adults: {props.buyer.adults}</p>
               <p>Children: {props.buyer.children}</p>
-              <p>type {props.buyer.estateType}</p>
             </>
           )}
+          <small>ID:{props.buyer.id}</small>
           {!props.buyer.chosen ? (
             <CheckCircleOutlined className={styles.cardSelector} />
           ) : (

@@ -36,8 +36,7 @@ export default function VisualSteps(props) {
       <Steps
         className={styles.visualSteps}
         size="small"
-        direction="horizontal"
-        // direction={width < 768 ? "vertical" : "horizontal"}
+        direction={width < 768 ? "vertical" : "horizontal"}
         items={[
           {
             title: "Estate details",

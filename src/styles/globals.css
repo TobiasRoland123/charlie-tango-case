@@ -38,7 +38,7 @@ html {
 }
 
 main {
-  padding-top: 3em;
+  padding-top: 1em;
 }
 
 body {
@@ -74,6 +74,11 @@ body {
   color: var(--blue);
 }
 
+.estateDetails_p {
+  display: flex;
+  justify-content: space-between;
+}
+
 .buyer_card .ant-card {
   min-height: 335px;
 }
@@ -97,6 +102,9 @@ body {
 
 .chosen_container ul {
   padding-left: 0.25em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 0.5em;
 }
 
 .chosen_container li {
@@ -109,6 +117,14 @@ body {
 }
 
 @media screen and (width < 768px) {
+  .ant-steps-item {
+    margin-inline: auto !important;
+  }
+
+  .estateDetails_p {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 @media screen and (width < 500px) {
   .front button {

@@ -90,9 +90,9 @@ export default function EstateDetails() {
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
+      <h1 className={styles.headline}>1. Estate Details</h1>
       <VisualSteps step={0} />
       <div className="wrapper">
-        <h1 className={styles.headline}>1. Estate Details</h1>
         <h3 className={styles.headline_explainer}>
           First off, let us know a little bit more about your estate by filing
           out the details below.
@@ -112,7 +112,7 @@ export default function EstateDetails() {
                   className={styles.formInput}
                   name="price"
                   formatter={(value) =>
-                    `${value} DKK`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    `DKK ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
                   }
                   parser={(value) => value.replace(/\s?DKK\s?|(\.)+/g, "")}
                   onChange={priceChanged}

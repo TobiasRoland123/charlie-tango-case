@@ -5,6 +5,7 @@ import { Input } from "antd";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { SellerInformation } from "./_app";
+import Image from "next/image";
 
 export default function EstateDetails() {
   //states and useContext
@@ -62,80 +63,83 @@ export default function EstateDetails() {
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
-
+      <h1 className={styles.headline}>3. Personal info</h1>
       <VisualSteps step={2} />
       <div className="wrapper">
-        <h1 className={styles.headline}>3. Personal info</h1>
-        <div className={styles.content}>
-          <p>Please put in the asked information about yourself</p>
-          <button onClick={showSellerDetails} className={styles.button}>
-            Show current seller details
-          </button>
-        </div>
-
+        <h3 className={styles.headline_explainer}>
+          We&lsquo;re almost there! Please fill out your contact information.
+          We&lsquo;ll contact you within 48 hours of submission.
+        </h3>
         <div className={styles.content}>
           <h2>Contact information</h2>
-          <p>
-            Please fill out the fields below with the mentionent Contact
-            information. The information is only used, so we are able to contact
-            you regarding the selling of your property.
-          </p>
+          <div className={styles.grid_1_1}>
+            <form
+              onSubmit={onSubmit}
+              action="done"
+              method="GET"
+              className={styles.form}
+            >
+              <label>
+                <span className={styles.label}> Name </span>
+                <Input
+                  className={styles.formInput}
+                  name="name"
+                  required
+                  onChange={nameChanged}
+                  value={name}
+                />
+              </label>
+              <label>
+                <span className={styles.label}> Email </span>
+                <Input
+                  className={styles.formInput}
+                  name="email"
+                  required
+                  type="email"
+                  onChange={emailChanged}
+                  value={email}
+                />
+              </label>
 
-          <form
-            onSubmit={onSubmit}
-            action="done"
-            method="GET"
-            className={styles.form}
-          >
-            <label>
-              <span className={styles.label}> Name </span>
-              <Input
-                className={styles.formInput}
-                name="name"
-                required
-                onChange={nameChanged}
-                value={name}
-              />
-            </label>
-            <label>
-              <span className={styles.label}> Email </span>
-              <Input
-                className={styles.formInput}
-                name="email"
-                required
-                type="email"
-                onChange={emailChanged}
-                value={email}
-              />
-            </label>
+              <label>
+                <span className={styles.label}> Phone </span>
+                <Input
+                  className={styles.formInput}
+                  name="phone"
+                  required
+                  type="tel"
+                  onChange={phoneChanged}
+                  value={phone}
+                />
+              </label>
 
-            <label>
-              <span className={styles.label}> Phone </span>
-              <Input
-                className={styles.formInput}
-                name="phone"
-                required
-                type="tel"
-                onChange={phoneChanged}
-                value={phone}
-              />
-            </label>
-
-            <label>
-              <span className={styles.label}> Terms and policy shit </span>
-              <input
-                type="checkbox"
-                id="scales"
-                name="scales"
-                onChange={consentChanged}
-                required
-              ></input>
-            </label>
-
-            <button type="submit" className={styles.button}>
-              Submit
-            </button>
-          </form>
+              <label>
+                <p className={styles.label}>
+                  By checking the box you agree to our terms & condition. We may
+                  store your information in up to two years.
+                </p>
+                <input
+                  type="checkbox"
+                  id="scales"
+                  name="scales"
+                  onChange={consentChanged}
+                  required
+                />
+                <span>I accept EDC&lsquo;s terms and conditions.</span>
+              </label>
+              <button type="submit" className={styles.button}>
+                Submit
+              </button>
+            </form>
+            <Image
+              className={styles.estateDetails_image}
+              src="https://images.pexels.com/photos/8293702/pexels-photo-8293702.jpeg"
+              alt="Three people discussing something over a table"
+              placeholder="blurDataUrl"
+              width="4500"
+              height="3000"
+            />
+          </div>
         </div>
       </div>
     </>
