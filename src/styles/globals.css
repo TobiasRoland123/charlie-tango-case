@@ -107,3 +107,11 @@ body {
   padding: 0.3em 0.5em;
   border: 1px solid var(--blue);
 }
+
+@media screen and (width < 768px) {
+}
+@media screen and (width < 500px) {
+  .front button {
+    margin-inline: auto;
+  }
+}

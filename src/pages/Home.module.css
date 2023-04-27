@@ -7,6 +7,11 @@
   line-height: 1.2;
 }
 
+.headline_explainer {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
 .content {
   padding: 1rem;
   background-color: var(--dusty-aqua-light);
@@ -59,6 +64,18 @@
   margin-inline: auto;
 }
 
+.grid_1_1 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1em;
+}
+
+.estateDetails_image {
+  width: 100%;
+  height: auto;
+  align-self: center;
+}
+
 .buyerCards {
   display: flex;
   justify-content: center;
@@ -71,4 +88,29 @@
   top: 15px;
   right: 10px;
   font-size: 1.5em;
+}
+
+@media screen and (width < 768px) {
+  .headline {
+    font-size: 3.5rem;
+    line-height: 1.1;
+  }
+
+  .grid_1_1 {
+    display: block;
+  }
+
+  .estateDetails_image {
+    display: none;
+  }
+
+  .formInput {
+    width: 100%;
+  }
+}
+@media screen and (width < 500px) {
+  .headline {
+    font-size: 3rem;
+    line-height: 1;
+  }
 }

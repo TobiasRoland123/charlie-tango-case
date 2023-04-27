@@ -5,9 +5,19 @@ import {
   ContactsFilled,
   EditFilled,
 } from "@ant-design/icons";
+import { useState, useEffect } from "react";
 import styles from "../pages/Home.module.css";
 
 export default function VisualSteps(props) {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
   // console.log(props.current);
 
   function checkStatus(val) {
@@ -26,7 +36,8 @@ export default function VisualSteps(props) {
       <Steps
         className={styles.visualSteps}
         size="small"
-        // current={props.current}
+        direction="horizontal"
+        // direction={width < 768 ? "vertical" : "horizontal"}
         items={[
           {
             title: "Estate details",
