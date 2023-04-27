@@ -8,6 +8,7 @@ import { SellerInformation } from "./_app";
 export default function EstateDetails() {
   //states and useContext
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -39,12 +40,21 @@ export default function EstateDetails() {
 
   function onSubmit(e) {
     e.preventDefault();
-    setSellerDetails({
+    setSellerDetails((prev) => {
+      return {
+        ...prev,
+        name,
+        email,
+        phone,
+        consent,
+      };
+    });
+    /*  setContactDetails({
       name: [name],
       email: [email],
       phone: [phone],
       consent: [consent],
-    });
+    }); */
     console.log(sellerDetails);
   }
 
@@ -119,6 +129,7 @@ export default function EstateDetails() {
                 id="scales"
                 name="scales"
                 onChange={consentChanged}
+                required
               ></input>
             </label>
 
