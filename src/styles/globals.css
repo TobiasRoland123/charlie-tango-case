@@ -117,10 +117,6 @@ body {
 }
 
 @media screen and (width < 768px) {
-  .ant-steps-item {
-    margin-inline: auto !important;
-  }
-
   .estateDetails_p {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -133,11 +133,11 @@ export default function EstateDetails() {
             </form>
             <Image
               className={styles.estateDetails_image}
-              src="https://images.pexels.com/photos/8293702/pexels-photo-8293702.jpeg"
+              src="https://images.pexels.com/photos/7734593/pexels-photo-7734593.jpeg"
               alt="Three people discussing something over a table"
               placeholder="blurDataUrl"
-              width="4500"
-              height="3000"
+              width="2730"
+              height="3665"
             />
           </div>
         </div>

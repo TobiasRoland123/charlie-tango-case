@@ -11,6 +11,13 @@
   text-align: center;
   margin-block: 3em 1.5em;
 }
+.headline_end_explainer {
+  text-align: center;
+}
+
+.headline_end_explainer1 {
+  margin-top: 2em;
+}
 
 .content {
   padding: 1rem;
@@ -88,7 +95,8 @@
   gap: 1em;
 }
 
-.estateDetails_image {
+.estateDetails_image,
+.estateDetails_end_image {
   width: 100%;
   height: auto;
   align-self: center;
@@ -131,10 +139,22 @@
   .formInput {
     width: 100%;
   }
+  .headline_end_explainer1 {
+    margin-top: 1em;
+  }
+  .visualSteps {
+    max-width: 157px;
+    margin-inline: auto;
+    margin-block: 2em;
+  }
 }
 @media screen and (width < 500px) {
   .headline {
     font-size: 3rem;
     line-height: 1;
+  }
+
+  .headline_end_explainer {
+    font-size: 1.2em;
   }
 }
