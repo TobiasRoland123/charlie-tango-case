@@ -22,6 +22,8 @@ export default function Done() {
 
   sendToSupabase();
 
+  // console.log(JSON.stringify(sellerDetails));
+
   return (
     <>
       <Head>
