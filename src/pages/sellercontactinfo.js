@@ -1,175 +1,127 @@
 import Head from "next/head";
-import Anchor from "@/components/Header/Anchor";
+import VisualSteps from "@/components/VisualSteps";
 import styles from "./Home.module.css";
-import { estateTypes } from "@/data/estateTypes";
-import { Input, InputNumber, Select } from "antd";
+import { Input } from "antd";
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
-import VisualSteps from "../components/VisualSteps";
 import { SellerInformation } from "./_app";
 
 export default function EstateDetails() {
-  //States
-  const [price, setPrice] = useState("");
-  const [size, setSize] = useState("");
-  const [zip, setZip] = useState("");
-  const [zipValidator, setZipValidator] = useState("");
-  const [estateType, setEstateType] = useState("");
+  //states and useContext
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
-  let estateDetails;
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [consent, setConsent] = useState(false);
 
-  //Routers
-  const router = useRouter();
+  function showSellerDetails() {
+    console.log(`this is the current sellerDetails: `, sellerDetails);
+  }
 
-  //UseEffect for the ZipCode validator
-  useEffect(() => {
-    fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setZipValidator(data);
-      });
-  }, [zip]);
-
-  //Const for changing states
-  const priceChanged = (e) => {
-    console.log(e);
-    setPrice(e);
+  const nameChanged = (e) => {
+    // console.log(e.target.value);
+    setName(e.target.value);
   };
 
-  const sizeChanged = (e) => {
-    // console.log(e);
-    setSize(e);
+  const emailChanged = (e) => {
+    console.log(e.target.value);
+    setEmail(e.target.value);
   };
 
-  const zipChanged = (e) => {
-    // console.log(e);
-    setZip(e);
+  const phoneChanged = (e) => {
+    // console.log(e.target.value);
+    setPhone(e.target.value);
   };
-  const estateChanged = (e) => {
-    // console.log("hvad er e?", e.target);
-    // console.log(estateTypes[0].name);
-    // console.log(estateTypes.length);
-    for (let i = 0; i < estateTypes.length; i++) {
-      if (e === estateTypes[i].name) {
-        setEstateType(estateTypes[i].id);
-      }
-    }
+
+  const consentChanged = (e) => {
+    // console.log(e.target.checked);
+    setConsent(e.target.checked);
   };
 
   function onSubmit(e) {
     e.preventDefault();
-    estateDetails = {
-      price,
-      size,
-      zip,
-      estateType,
-    };
-
-    {
-      !zipValidator.navn
-        ? alert("ZipCode not Valid")
-        : updateSellerInformation();
-    }
-
-    function updateSellerInformation() {
-      setSellerDetails({
-        price: price,
-        size: size,
-        zip: zip,
-        estateType: estateType,
-      });
-      router.push(
-        `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
-      );
-    }
-    //Update useContext
+    setSellerDetails({
+      name: [name],
+      email: [email],
+      phone: [phone],
+      consent: [consent],
+    });
+    console.log(sellerDetails);
   }
+
   return (
     <>
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
+
       <VisualSteps step={2} />
       <div className="wrapper">
-        <h1 className={styles.headline}>1. Estate Details</h1>
+        <h1 className={styles.headline}>3. Personal info</h1>
         <div className={styles.content}>
-          <p>
-            First off, let us know a little bit more about your estate by filing
-            out the details below.
-          </p>
+          <p>Please put in the asked information about yourself</p>
+          <button onClick={showSellerDetails} className={styles.button}>
+            Show current seller details
+          </button>
         </div>
+
         <div className={styles.content}>
-          <h2>Basic form example</h2>
+          <h2>Contact information</h2>
           <p>
-            This is simple example of how you could submit a form to another
-            page in Next.js, without using a custom <code>submit</code> function
-            (e.g. without JavaScript). It is unstyled and unfinished. You can
-            use this as base, or implement your own solution.
+            Please fill out the fields below with the mentionent Contact
+            information. The information is only used, so we are able to contact
+            you regarding the selling of your property.
           </p>
-          <p>
-            Make sure to read the guide on{" "}
-            <a
-              href="https://nextjs.org/docs/guides/building-forms"
-              target="_blank"
-            >
-              building forms in Next.js
-            </a>
-          </p>
-          {/* Hvis der er Ændringer på denne side, skal vores gererede Object med de producerede værdier slettes. */}
+
           <form
             onSubmit={onSubmit}
-            action="/done"
+            action="/sellercontactinfo"
             method="GET"
             className={styles.form}
           >
             <label>
-              <span className={styles.label}>Name</span>
+              <span className={styles.label}> Name </span>
               <Input
                 className={styles.formInput}
-                name="Name"
-                // formatter={(value) =>
-                //   `${value} DKK`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                // }
-                // parser={(value) => value.replace(/\s?DKK\s?|(\.)+/g, "")}
-                onChange={priceChanged}
-                value={price}
+                name="name"
                 required
+                onChange={nameChanged}
+                value={name}
               />
             </label>
             <label>
-              <span className={styles.label}>
-                Size in m<sup>2</sup>
-              </span>
-              <InputNumber
+              <span className={styles.label}> Email </span>
+              <Input
                 className={styles.formInput}
-                name="size"
-                type="number"
-                onChange={sizeChanged}
-                value={size}
+                name="email"
                 required
+                type="email"
+                onChange={emailChanged}
+                value={email}
               />
             </label>
+
             <label>
-              <span className={styles.label}>Zip Code</span>
-              <InputNumber
+              <span className={styles.label}> Phone </span>
+              <Input
                 className={styles.formInput}
-                name="zipCode"
-                type="number"
-                onChange={zipChanged}
-                value={zip}
+                name="phone"
                 required
+                type="tel"
+                onChange={phoneChanged}
+                value={phone}
               />
             </label>
+
             <label>
-              <span className={styles.label}>Estate type</span>
-              <Select className={styles.formInput} onChange={estateChanged}>
-                {estateTypes.map((estate) => (
-                  <Select.Option key={estate.name} id={estate.id}>
-                    {estate.name}
-                  </Select.Option>
-                ))}
-              </Select>
+              <span className={styles.label}> Terms and policy shit </span>
+              <input
+                type="checkbox"
+                id="scales"
+                name="scales"
+                onChange={consentChanged}
+              ></input>
             </label>
+
             <button type="submit" className={styles.button}>
               Submit
             </button>

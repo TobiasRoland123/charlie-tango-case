@@ -43,7 +43,7 @@ export default function BuyerDetails(buyers) {
 
   // console.log(query.price);
   // console.log(data);
-  // console.log("Seller Details", sellerDetails);
+  console.log("Seller Details", sellerDetails);
 
   return (
     <>
