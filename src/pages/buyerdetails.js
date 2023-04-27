@@ -80,6 +80,8 @@ export default function BuyerDetails(buyers) {
             <p>Price: {sellerDetails.price}</p>
             <p>Size: {sellerDetails.size}</p>
             <p>Zip Code: {sellerDetails.zip}</p>
+
+            <Anchor href={"/sellercontactinfo"}>Submit</Anchor>
           </div>
           <div className={styles.content}>
             <h2>Chosen buyers</h2>
