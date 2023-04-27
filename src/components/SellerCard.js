@@ -2,6 +2,7 @@ import { Avatar, Card, Skeleton, Switch } from "antd";
 
 export default function SellerCard(props) {
   const seller = props.seller;
+
   return (
     <>
       <article>
@@ -12,13 +13,22 @@ export default function SellerCard(props) {
             width: 300,
           }}
         >
-          <strong>About the property</strong>
+          <strong>Contact info:</strong>
+          <a href={`mailto:${seller.email}`}>{`Email: ${seller.email}`}</a>
+          <a href={`tel:${seller.phone}`}>{seller.phone}</a>
+          <p>{`Creation date: ${setDate(seller.created_at)}`}</p>
+          <strong>About the property:</strong>
           <p>{`Property price: ${seller.price} DKK`}</p>
           <p>{`Property Size: ${seller.size} m2`}</p>
         </Card>
       </article>
     </>
   );
+}
+
+function setDate(dateString) {
+  console.log(dateString.substring(0, dateString.indexOf("T")));
+  return dateString.substring(0, dateString.indexOf("T"));
 }
 
 /*
