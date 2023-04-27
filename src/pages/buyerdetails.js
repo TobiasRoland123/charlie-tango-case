@@ -27,21 +27,15 @@ export default function BuyerDetails(buyers) {
         {
           data.map((data) => (data.chosen = false));
         }
-        console.log("afterMap", data);
+        // console.log("afterMap", data);
         setData(data);
         // setData(data);
         setLoading(false);
       });
   }, [query]);
 
-  function onSubmit() {
-    setSellerDetails({
-      buyers: [data],
-    });
-  }
-
   function updateBuyers(id) {
-    console.log(id);
+    // console.log(id);
     const updatedBuyers = data.map((buyer) => {
       // console.log(buyer);
       if (buyer.id === id && buyer.chosen === false) {
@@ -61,9 +55,14 @@ export default function BuyerDetails(buyers) {
     // console.log(data);
   }
 
-  // console.log(query.price);
-  // console.log(data);
-  // console.log("Seller Details", sellerDetails);
+  function updateSellerInformation() {
+    // console.log(data);
+    const newSeller = { ...sellerDetails };
+    newSeller.buyers = data;
+    setSellerDetails(newSeller);
+    // console.log(sellerDetails);
+    router.push(`/sellercontactinfo`);
+  }
 
   return (
     <>
@@ -88,18 +87,16 @@ export default function BuyerDetails(buyers) {
                   buyer.chosen ? (
                     <li key={buyer.id}>
                       <span>ID: {buyer.id}</span>
-                      <DeleteOutlined
-                        onClick={() => {
-                          updateBuyers(buyer.id);
-                        }}
-                      />
+                      <DeleteOutlined onClick={() => updateBuyers(buyer.id)} />
                     </li>
                   ) : (
                     ""
                   )
                 )}
               </ul>
-              <button>Sup bitches</button>
+              <button onClick={() => updateSellerInformation()}>
+                Sup bitches
+              </button>
             </div>
           </div>
         </div>
