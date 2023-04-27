@@ -3,6 +3,7 @@ import VisualSteps from "@/components/VisualSteps";
 import styles from "./Home.module.css";
 import { Input } from "antd";
 import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 import { SellerInformation } from "./_app";
 
 export default function EstateDetails() {
@@ -13,6 +14,9 @@ export default function EstateDetails() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
+
+  //routers
+  const router = useRouter();
 
   function showSellerDetails() {
     console.log(`this is the current sellerDetails: `, sellerDetails);
@@ -40,22 +44,17 @@ export default function EstateDetails() {
 
   function onSubmit(e) {
     e.preventDefault();
-    setSellerDetails((prev) => {
-      return {
-        ...prev,
-        name,
-        email,
-        phone,
-        consent,
-      };
-    });
-    /*  setContactDetails({
-      name: [name],
-      email: [email],
-      phone: [phone],
-      consent: [consent],
-    }); */
-    console.log(sellerDetails);
+    setSellerDetails((prev) => ({
+      //takes what was in object, and adds name, email, phone and consent
+
+      ...prev,
+      name,
+      email,
+      phone,
+      consent,
+    }));
+
+    router.push(e.target.action);
   }
 
   return (
@@ -84,7 +83,7 @@ export default function EstateDetails() {
 
           <form
             onSubmit={onSubmit}
-            action="/sellercontactinfo"
+            action="done"
             method="GET"
             className={styles.form}
           >

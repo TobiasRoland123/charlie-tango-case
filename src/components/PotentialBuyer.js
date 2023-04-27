@@ -34,6 +34,7 @@ export default function PotentialBuyer(props) {
             <>
               <p>Adults: {props.buyer.adults}</p>
               <p>Children: {props.buyer.children}</p>
+              <p>type {props.buyer.estateType}</p>
             </>
           )}
           {!props.buyer.chosen ? (
