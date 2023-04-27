@@ -1,4 +1,7 @@
 import { Avatar, Card, Skeleton, Switch } from "antd";
+import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import styles from "../pages/Home.module.css";
+import { Button, Space } from "antd";
 
 export default function SellerCard(props) {
   const seller = props.seller;
@@ -13,13 +16,29 @@ export default function SellerCard(props) {
             width: 300,
           }}
         >
+          {seller.buyers === null ? (
+            <h3>No buyers</h3>
+          ) : (
+            <h3> {`Potential buyers: ${seller.buyers.length}`}</h3>
+          )}
           <strong>Contact info:</strong>
-          <a href={`mailto:${seller.email}`}>{`Email: ${seller.email}`}</a>
-          <a href={`tel:${seller.phone}`}>{seller.phone}</a>
+
+          <p>
+            <a href={`mailto:${seller.email}`}>{`Email: ${seller.email}`}</a>
+          </p>
+
+          <p>
+            <a href={`tel:${seller.phone}`}>{seller.phone}</a>
+          </p>
           <p>{`Creation date: ${setDate(seller.created_at)}`}</p>
           <strong>About the property:</strong>
           <p>{`Property price: ${seller.price} DKK`}</p>
           <p>{`Property Size: ${seller.size} m2`}</p>
+          <p>{`Zip Code: ${seller.zip}`}</p>
+
+          <Button type="primary" size="small" className={styles.cardSelector}>
+            Open case
+          </Button>
         </Card>
       </article>
     </>
