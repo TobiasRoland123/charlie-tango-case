@@ -125,6 +125,16 @@ body {
   font-size: 1.1rem;
 }
 
+.dashboard_sellerCards .ant-card-head-title {
+  max-width: 175px;
+}
+
+.dashboard_anchor {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+
 @media screen and (width < 768px) {
   .estateDetails_p {
     display: grid;

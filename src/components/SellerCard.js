@@ -2,14 +2,24 @@ import { Avatar, Card, Skeleton, Switch } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import styles from "../pages/Home.module.css";
 import { Button, Space } from "antd";
+import { useState, useEffect } from "react";
 import Anchor from "./Header/Anchor";
 
 export default function SellerCard(props) {
+  const [chosen, setChosen] = useState(0);
   const seller = props.seller;
+
+  useEffect(() => {
+    for (let i = 0; i < seller.buyers.length; i++) {
+      if (seller.buyers[i].chosen === true) {
+        setChosen((prev) => prev + 1);
+      }
+    }
+  }, [seller]);
 
   return (
     <>
-      <article>
+      <article className="dashboard_sellerCards">
         <Card
           title={seller.name}
           bordered={false}
@@ -20,7 +30,10 @@ export default function SellerCard(props) {
           {seller.buyers === null ? (
             <h3>No buyers</h3>
           ) : (
-            <h3> {`Potential buyers: ${seller.buyers.length}`}</h3>
+            <h3>
+              {" "}
+              {`Chosen buyers: ${chosen} ( of ${seller.buyers.length} possible)`}
+            </h3>
           )}
           <p>{`Creation date: ${setDate(seller.created_at)}`}</p>
           <strong>Contact info:</strong>
@@ -40,7 +53,7 @@ export default function SellerCard(props) {
 
           <Anchor
             href={`/dashboard/seller-case/${seller.id}`}
-            className={styles.cardSelector}
+            className="dashboard_anchor"
           >
             <Button type="primary" size={"small"}>
               Open case
@@ -53,7 +66,7 @@ export default function SellerCard(props) {
 }
 
 function setDate(dateString) {
-  console.log(dateString.substring(0, dateString.indexOf("T")));
+  // console.log(dateString.substring(0, dateString.indexOf("T")));
   return dateString.substring(0, dateString.indexOf("T"));
 }
 

@@ -20,7 +20,7 @@ export default function Dashboard() {
       .then((res) => res.json())
       .then((data) => setSellers(data.response));
   }, []);
-  console.log(`Sellers: `, sellers);
+  // console.log(`Sellers: `, sellers);
   return (
     <>
       <Head>
