@@ -43,7 +43,7 @@ export default function PotentialBuyer(props) {
               <p>Children: {props.buyer.children}</p>
             </>
           )}
-          <small>ID:{props.buyer.id}</small>
+          <small>Buyer ID:{props.buyer.id}</small>
           {!props.buyer.chosen ? (
             <CheckCircleOutlined className={styles.cardSelector} />
           ) : (
