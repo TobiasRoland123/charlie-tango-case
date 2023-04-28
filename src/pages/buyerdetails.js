@@ -141,7 +141,7 @@ export default function BuyerDetails(buyers) {
                 {data.map((buyer) =>
                   buyer.chosen ? (
                     <li key={buyer.id}>
-                      <span>ID: {buyer.id}</span>
+                      <span>Buyer ID: {buyer.id}</span>
                       <DeleteOutlined onClick={() => updateBuyers(buyer.id)} />
                     </li>
                   ) : (
