@@ -22,27 +22,29 @@ export default function SellerCard(props) {
           ) : (
             <h3> {`Potential buyers: ${seller.buyers.length}`}</h3>
           )}
+          <p>{`Creation date: ${setDate(seller.created_at)}`}</p>
           <strong>Contact info:</strong>
 
           <p>
-            <a href={`mailto:${seller.email}`}>{`Email: ${seller.email}`}</a>
+            <a href={`mailto:${seller.email}`}>{`${seller.email}`}</a>
           </p>
 
           <p>
             <a href={`tel:${seller.phone}`}>{seller.phone}</a>
           </p>
-          <p>{`Creation date: ${setDate(seller.created_at)}`}</p>
+
           <strong>About the property:</strong>
-          <p>{`Property price: ${seller.price} DKK`}</p>
-          <p>{`Property Size: ${seller.size} m2`}</p>
+          <p>{`${seller.price} DKK`}</p>
+          <p>{`${seller.size} m2`}</p>
           <p>{`Zip Code: ${seller.zip}`}</p>
 
-          <Button type="primary" size="small" className={styles.cardSelector}>
-            Open case
-          </Button>
-
-          <Anchor href={`/dashboard/seller-case/${seller.id}`}>
-            Open case
+          <Anchor
+            href={`/dashboard/seller-case/${seller.id}`}
+            className={styles.cardSelector}
+          >
+            <Button type="primary" size={"small"}>
+              Open case
+            </Button>
           </Anchor>
         </Card>
       </article>
