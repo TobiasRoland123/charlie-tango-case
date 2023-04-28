@@ -2,7 +2,7 @@
 // 2) Import the sellers from supabase -- api route from at api/buyerProfiles.js?
 import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
-import styles from "./Home.module.css";
+import styles from "@/pages/Home.module.css";
 import { useState, useEffect } from "react";
 import SellerCard from "@/components/SellerCard";
 import { Avatar, Card, Skeleton, Switch } from "antd";

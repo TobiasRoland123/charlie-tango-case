@@ -2,6 +2,7 @@ import { Avatar, Card, Skeleton, Switch } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import styles from "../pages/Home.module.css";
 import { Button, Space } from "antd";
+import Anchor from "./Header/Anchor";
 
 export default function SellerCard(props) {
   const seller = props.seller;
@@ -39,6 +40,10 @@ export default function SellerCard(props) {
           <Button type="primary" size="small" className={styles.cardSelector}>
             Open case
           </Button>
+
+          <Anchor href={`/dashboard/seller-case/${seller.id}`}>
+            Open case
+          </Anchor>
         </Card>
       </article>
     </>
