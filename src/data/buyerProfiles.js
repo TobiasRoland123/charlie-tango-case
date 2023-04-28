@@ -49,6 +49,8 @@ export function generateBuyerProfile({ price = 5000000, size = 100 } = {}) {
       .split("T")[0],
   };
 
+  // console.log("result.estateType", result.estateType);
+
   let familyName;
   if (result.adults === 2) {
     if (result.children === 0) {
@@ -80,6 +82,7 @@ export function generateBuyerProfile({ price = 5000000, size = 100 } = {}) {
  * @param zipCode {number} Filter profiles based on the zipCode
  * @param price {number} Price in kr
  * @param size {number} Size in square meters
+ * @param estateType {number} Estatetype in ID
  * @param minResults? {number} Minimum number of profiles to generate
  * @param maxResults? {number} Maximum number of profiles to generate
  * @returns {{ maxPrice: number, estateType: string, takeoverDate: string, children: number, adults: number, description: string, minSize: number, id: string}[]}
