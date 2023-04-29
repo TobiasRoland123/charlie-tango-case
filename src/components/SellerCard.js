@@ -1,13 +1,42 @@
 import { Avatar, Card, Skeleton, Switch } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import styles from "../pages/Home.module.css";
-import { Button, Space } from "antd";
+import { Button, Space, Modal } from "antd";
 import { useState, useEffect } from "react";
 import Anchor from "./Header/Anchor";
 
 export default function SellerCard(props) {
   const [chosen, setChosen] = useState(0);
   const seller = props.seller;
+
+  //Modal state variables
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState(
+    `You are about to delete case: ${seller.seller_id}`
+  );
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  // Function to set up modal
+  const handleOk = () => {
+    setModalText(`Deletes case: ${seller.seller_id}`);
+    setConfirmLoading(true);
+    setTimeout(() => {
+      props.deleteEntry(props.deleteKey);
+      props.setDeleteRun((old) => old + 1);
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+    props.setDeleteRun((old) => old + 1);
+  };
+
+  //Handels cancel on modal
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
 
   useEffect(() => {
     for (let i = 0; i < seller.buyers.length; i++) {
@@ -59,15 +88,17 @@ export default function SellerCard(props) {
               Open case
             </Button>
           </Anchor>
+          <Button onClick={showModal}>Delete Case</Button>
 
-          <Button
-            onClick={() => {
-              props.deleteEntry(props.deleteKey);
-              props.setDeleteRun((old) => old + 1);
-            }}
+          <Modal
+            title="Do you want to delete this case?"
+            open={open}
+            onOk={handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={handleCancel}
           >
-            Delete Case
-          </Button>
+            <p>{modalText}</p>
+          </Modal>
         </Card>
       </article>
     </>
@@ -80,26 +111,3 @@ function setDate(dateString) {
 }
 
 function deleteSeller() {}
-
-/*
-buyers: null
-​​
-consent: true
-​​
-created_at: "2023-04-27T12:07:14.48492+00:00"
-​​
-email: "sasd@ee"
-​​
-estateType: "5"
-​​
-id: 7
-​​
-name: "sdf sdf"
-​​
-phone: "50478603"
-​​
-price: 123
-​​
-size: 123
-​​
-zip: 2605 */
