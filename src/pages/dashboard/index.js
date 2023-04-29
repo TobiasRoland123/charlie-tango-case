@@ -18,7 +18,13 @@ export default function Dashboard() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setSellers(data.response));
+      .then((data) => {
+        // {
+        //   data.response.buyers.map((buyer) => (buyer.contacted = false));
+        // }
+
+        setSellers(data.response);
+      });
   }, []);
   console.log(`Sellers: `, sellers);
   return (
