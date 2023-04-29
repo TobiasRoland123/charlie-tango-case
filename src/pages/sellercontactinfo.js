@@ -6,6 +6,8 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { SellerInformation } from "./_app";
 import Image from "next/image";
+import { v4 as uuidv4 } from "uuid";
+//Unique ID generator
 
 export default function EstateDetails() {
   //states and useContext
@@ -45,6 +47,7 @@ export default function EstateDetails() {
 
   function onSubmit(e) {
     e.preventDefault();
+    //Unique ID generator
     setSellerDetails((prev) => ({
       //takes what was in object, and adds name, email, phone and consent
 
@@ -53,6 +56,7 @@ export default function EstateDetails() {
       email,
       phone,
       consent,
+      id: uuidv4(),
     }));
 
     router.push(e.target.action);
