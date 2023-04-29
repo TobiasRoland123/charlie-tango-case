@@ -31,7 +31,9 @@ export default function BuyerDetails(buyers) {
       .then((res) => res.json())
       .then((data) => {
         {
-          data.map((data) => (data.chosen = false));
+          data.map((data) => {
+            (data.chosen = false), (data.contacted = false);
+          });
         }
         // console.log("afterMap", data);
         setData(data);
