@@ -59,6 +59,15 @@ export default function SellerCard(props) {
               Open case
             </Button>
           </Anchor>
+
+          <Button
+            onClick={() => {
+              props.deleteEntry(props.deleteKey);
+              props.setDeleteRun((old) => old + 1);
+            }}
+          >
+            Delete Case
+          </Button>
         </Card>
       </article>
     </>
@@ -69,6 +78,8 @@ function setDate(dateString) {
   // console.log(dateString.substring(0, dateString.indexOf("T")));
   return dateString.substring(0, dateString.indexOf("T"));
 }
+
+function deleteSeller() {}
 
 /*
 buyers: null

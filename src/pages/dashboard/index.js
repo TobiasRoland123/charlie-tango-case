@@ -22,7 +22,7 @@ export default function Dashboard() {
 
   function getTodayDate() {
     const today = new Date();
-    const year = today.getFullYear();
+    const year = today.getFullYear() - 2;
     // console.log("Year:", year);
     const month = String(today.getMonth() + 1).padStart(2, "0");
     // console.log("Month:", month);
@@ -53,7 +53,7 @@ export default function Dashboard() {
               seller.created_at.indexOf("T")
             );
             if (sd === todayDate) {
-              deleteEntryGDPR(seller);
+              deleteEntry(seller);
               // console.log(seller.id);
               setDeleteRun((old) => old + 1);
             }
@@ -64,8 +64,8 @@ export default function Dashboard() {
       });
   }, [deleteRun]);
 
-  function deleteEntryGDPR(seller) {
-    console.log(JSON.stringify(seller.id));
+  function deleteEntry(seller) {
+    console.log(`deleteEntry called with id: ${seller.id}`);
     fetch("/api/delete-seller-case", {
       method: "POST",
       headers: {
@@ -114,7 +114,13 @@ export default function Dashboard() {
               <Card style={{ width: 300, marginTop: 16 }}></Card>
             ) : (
               sellers.map((seller) => (
-                <SellerCard key={seller.id} seller={seller} />
+                <SellerCard
+                  key={seller.id}
+                  seller={seller}
+                  deleteEntry={deleteEntry}
+                  deleteKey={seller}
+                  setDeleteRun={setDeleteRun}
+                />
               ))
             )}
           </ul>
