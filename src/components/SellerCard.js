@@ -109,5 +109,3 @@ function setDate(dateString) {
   // console.log(dateString.substring(0, dateString.indexOf("T")));
   return dateString.substring(0, dateString.indexOf("T"));
 }
-
-function deleteSeller() {}
