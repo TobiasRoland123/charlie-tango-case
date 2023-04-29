@@ -9,6 +9,7 @@ import { Avatar, Card, Skeleton, Switch } from "antd";
 
 export default function Dashboard() {
   const [sellers, setSellers] = useState("");
+  const [deleteRun, setDeleteRun] = useState(0);
 
   //GDPR DELETE
   // Data from superbase returns like this:
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
   function getTodayDate() {
     const today = new Date();
-    const year = today.getFullYear() - 2;
+    const year = today.getFullYear();
     // console.log("Year:", year);
     const month = String(today.getMonth() + 1).padStart(2, "0");
     // console.log("Month:", month);
@@ -52,30 +53,43 @@ export default function Dashboard() {
               seller.created_at.indexOf("T")
             );
             if (sd === todayDate) {
-              deleteEntryGDPR(seller.id);
+              deleteEntryGDPR(seller);
               // console.log(seller.id);
+              setDeleteRun((old) => old + 1);
             }
           });
         }
 
         setSellers(data.response);
       });
-  }, [todayDate]);
+  }, [deleteRun]);
 
-  function deleteEntryGDPR(id) {
-    fetch(
-      `https://pidnszjfygdazvvfuozh.supabase.co/rest/v1/edc_seller_helper?id=eq.${id}`,
-      {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-          Prefer: "return=representation",
-          apikey: process.env.SUPABASE_KEY,
-        },
-      }
-    )
+  function deleteEntryGDPR(seller) {
+    console.log(JSON.stringify(seller.id));
+    fetch("/api/delete-seller-case", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+
+      body: JSON.stringify(seller.id),
+    })
       .then((res) => res.json())
       .then((data) => console.log(data));
+
+    // fetch(
+    //   `https://pidnszjfygdazvvfuozh.supabase.co/rest/v1/edc_seller_helper?id=eq.${id}`,
+    //   {
+    //     method: "delete",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Prefer: "return=representation",
+    //       apikey: process.env.SUPABASE_KEY,
+    //     },
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
   }
 
   return (
