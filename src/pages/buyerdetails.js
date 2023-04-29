@@ -110,28 +110,18 @@ export default function BuyerDetails(buyers) {
               <h2>Estate Details:</h2>
               <p className="estateDetails_p">
                 <span>
-                  <b>Price:</b>
-                </span>{" "}
-                <span>{price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK</span>
+                  {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK
+                </span>
               </p>
               <p className="estateDetails_p">
-                <span>
-                  <b>Size:</b>
-                </span>{" "}
                 <span>{sellerDetails.size} &#13217;</span>
               </p>
               <p className="estateDetails_p">
-                <span>
-                  <b>Zip Code:</b>
-                </span>{" "}
                 <span>
                   {sellerDetails.zip}, {zipL}
                 </span>
               </p>
               <p className="estateDetails_p">
-                <span>
-                  <b>Estate type:</b>
-                </span>{" "}
                 <span>{estateChecker(sellerDetails.estateType)}</span>
               </p>
             </div>
