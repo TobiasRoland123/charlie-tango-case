@@ -17,10 +17,11 @@ export default function Dashboard() {
 
   //Find todays date
   const todayDate = getTodayDate();
+  console.log(todayDate);
 
   function getTodayDate() {
     const today = new Date();
-    const year = today.getFullYear();
+    const year = today.getFullYear() - 2;
     // console.log("Year:", year);
     const month = String(today.getMonth() + 1).padStart(2, "0");
     // console.log("Month:", month);

@@ -56,7 +56,7 @@ export default function EstateDetails() {
       email,
       phone,
       consent,
-      id: uuidv4(),
+      seller_id: uuidv4(),
     }));
 
     router.push(e.target.action);

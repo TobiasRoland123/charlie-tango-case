@@ -19,6 +19,14 @@ export default function EstateDetails() {
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
   let estateDetails;
 
+  const newEstates = [
+    estateTypes.map((est) => ({
+      value: est.id,
+      label: est.name,
+    })),
+  ];
+
+  // console.log(newEstates);
   //Routers
   const router = useRouter();
 
@@ -30,6 +38,30 @@ export default function EstateDetails() {
         setZipValidator(data);
       });
   }, [zip]);
+
+  useEffect(() => {
+    //Price check
+    if (sellerDetails.price === "") {
+      setPrice();
+    } else {
+      setPrice(sellerDetails.price);
+    }
+    if (sellerDetails.size === "") {
+      setSize();
+    } else {
+      setSize(sellerDetails.size);
+    }
+    if (sellerDetails.zip === "") {
+      setZip();
+    } else {
+      setZip(sellerDetails.zip);
+    }
+    if (sellerDetails.estateType === "") {
+      setEstateType();
+    } else {
+      setEstateType(sellerDetails.estateType);
+    }
+  }, [sellerDetails]);
 
   //Const for changing states
   const priceChanged = (e) => {
@@ -47,11 +79,11 @@ export default function EstateDetails() {
     setZip(e);
   };
   const estateChanged = (e) => {
-    // console.log("hvad er e?", e.target);
+    // console.log("hvad er e?", e);
     // console.log(estateTypes[0].name);
     // console.log(estateTypes.length);
     for (let i = 0; i < estateTypes.length; i++) {
-      if (e === estateTypes[i].name) {
+      if (e === estateTypes[i].id) {
         setEstateType(estateTypes[i].id);
       }
     }
@@ -146,12 +178,21 @@ export default function EstateDetails() {
               </label>
               <label>
                 <span className={styles.label}>Estate type</span>
-                <Select className={styles.formInput} onChange={estateChanged}>
-                  {estateTypes.map((estate) => (
-                    <Select.Option key={estate.name} id={estate.id}>
+                <Select
+                  className={styles.formInput}
+                  onChange={estateChanged}
+                  options={newEstates[0]}
+                  defaultValue={sellerDetails.estateType}
+                >
+                  {/* {estateTypes.map((estate) => (
+                    <Select.Option
+                      key={estate.name}
+                      id={estate.id}
+                      value={estate.name}
+                    >
                       {estate.name}
                     </Select.Option>
-                  ))}
+                  ))} */}
                 </Select>
               </label>
               <button type="submit" className={styles.button}>

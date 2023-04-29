@@ -79,6 +79,10 @@ body {
   justify-content: space-between;
 }
 
+.buyer_card {
+  cursor: pointer;
+}
+
 .buyer_card .ant-card {
   min-height: 335px;
 }
