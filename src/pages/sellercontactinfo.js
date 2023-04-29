@@ -5,6 +5,7 @@ import { Input } from "antd";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { SellerInformation } from "./_app";
+import { DeleteOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 //Unique ID generator
@@ -12,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function EstateDetails() {
   //states and useContext
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
+  const [theBuyers, setTheBuyers] = useState(sellerDetails.buyers);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +22,8 @@ export default function EstateDetails() {
 
   //routers
   const router = useRouter();
+
+  // console.log("theBuyers", theBuyers);
 
   function showSellerDetails() {
     console.log(`this is the current sellerDetails: `, sellerDetails);
@@ -52,6 +56,7 @@ export default function EstateDetails() {
       //takes what was in object, and adds name, email, phone and consent
 
       ...prev,
+      buyers: theBuyers,
       name,
       email,
       phone,
@@ -60,6 +65,35 @@ export default function EstateDetails() {
     }));
 
     router.push(e.target.action);
+  }
+
+  // console.log("sellerDetails", sellerDetails.buyers);
+
+  function updateBuyers(id) {
+    console.log(id);
+    // console.log(seller);
+    const updatedBuyers = theBuyers.map((buyer) => {
+      if (buyer.id === id) {
+        const newBuyer = { ...buyer };
+        newBuyer.chosen = false;
+        return newBuyer;
+      }
+      return buyer;
+    });
+
+    setTheBuyers(updatedBuyers);
+    // buyer.chosen = true;
+    //     } else if (buyer.id === id && buyer.chosen === true) {
+    //       const newBuyer = { ...buyer };
+    //       console.log(newBuyer);
+    //       newBuyer.chosen = false;
+    //       console.log(newBuyer);
+    //       return newBuyer;
+    //     }
+    //     return buyer;
+    //   });
+
+    //   setSellerDetails((sellerDetails.buyers = updatedBuyers));
   }
 
   return (
@@ -135,14 +169,20 @@ export default function EstateDetails() {
                 Submit
               </button>
             </form>
-            <Image
-              className={styles.estateDetails_image}
-              src="https://images.pexels.com/photos/7734593/pexels-photo-7734593.jpeg"
-              alt="Three people discussing something over a table"
-              placeholder="blurDataUrl"
-              width="2730"
-              height="3665"
-            />
+            <div>
+              <ul>
+                {theBuyers.map((buyer) =>
+                  buyer.chosen ? (
+                    <li key={buyer.id}>
+                      <span>Buyer ID: {buyer.id}</span>
+                      <DeleteOutlined onClick={() => updateBuyers(buyer.id)} />
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

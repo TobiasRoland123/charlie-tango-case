@@ -32,11 +32,14 @@ export default function EstateDetails() {
 
   //UseEffect for the ZipCode validator
   useEffect(() => {
-    fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setZipValidator(data);
-      });
+    if (String(zip).length >= 4) {
+      fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setZipValidator(data);
+        });
+    }
+    // }
   }, [zip]);
 
   useEffect(() => {
@@ -75,7 +78,6 @@ export default function EstateDetails() {
   };
 
   const zipChanged = (e) => {
-    // console.log(e);
     setZip(e);
   };
   const estateChanged = (e) => {
