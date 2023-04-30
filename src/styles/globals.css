@@ -104,11 +104,24 @@ body {
   display: block;
 }
 
-.chosen_container ul {
+.chosen_container ul,
+.dashboard_chosen_container ul {
   padding-left: 0.25em;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
   gap: 0.5em;
+}
+
+.dashboard_chosen_container li {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem 0.5rem;
+  font-size: 1rem;
+  padding: 0.5em 0.8em;
+  background-color: var(--dusty-blue-lighter);
+  color: var(--black);
+  border-radius: 5px;
 }
 
 .chosen_container li {
@@ -127,8 +140,11 @@ body {
 .id_area {
   grid-area: id;
 }
-.budget_area {
+.budget_area,
+.dashboard_chosen_container li span:last-child {
   grid-area: budget;
+  font-size: 0.75rem;
+  font-style: italic;
 }
 
 .chosen_container li span:last-child {
@@ -147,6 +163,12 @@ body {
   position: absolute;
   top: 16px;
   right: 10px;
+}
+
+.chosen_explainer {
+  position: absolute;
+  bottom: 0;
+  right: 1.5rem;
 }
 
 @media screen and (width < 768px) {

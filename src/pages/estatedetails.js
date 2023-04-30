@@ -8,6 +8,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import VisualSteps from "../components/VisualSteps";
 import { SellerInformation } from "./_app";
+import ZipSelctor from "../components/ZipSelctor";
 
 export default function EstateDetails() {
   //States
@@ -100,11 +101,12 @@ export default function EstateDetails() {
       estateType,
     };
 
-    {
-      !zipValidator.navn
-        ? alert("ZipCode not Valid")
-        : updateSellerInformation();
-    }
+    updateSellerInformation();
+    // {
+    //   !zipValidator.navn
+    //     ? alert("ZipCode not Valid")
+    //     : updateSellerInformation();
+    // }
 
     function updateSellerInformation() {
       setSellerDetails({
@@ -167,7 +169,7 @@ export default function EstateDetails() {
                   required
                 />
               </label>
-              <label>
+              {/* <label>
                 <span className={styles.label}>Zip Code</span>
                 <InputNumber
                   className={styles.formInput}
@@ -177,10 +179,14 @@ export default function EstateDetails() {
                   value={zip}
                   required
                 />
+              </label> */}
+              <label>
+                <span className={styles.label}>New Zip Code Test</span>
+                <ZipSelctor onChange={zipChanged} zip={zip}></ZipSelctor>
               </label>
               <label>
                 <span className={styles.label}>Estate type</span>
-                <Select
+                {/* <Select
                   className={styles.formInput}
                   onChange={estateChanged}
                   options={newEstates[0]}
@@ -194,8 +200,22 @@ export default function EstateDetails() {
                     >
                       {estate.name}
                     </Select.Option>
-                  ))} */}
-                </Select>
+                  ))}
+                </Select> */}
+                <Select
+                  className={styles.formInput}
+                  showSearch
+                  placeholder="Estate type"
+                  optionFilterProp="children"
+                  onChange={estateChanged}
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={newEstates[0]}
+                  defaultValue={sellerDetails.estateType}
+                ></Select>
               </label>
               <button type="submit" className={styles.button}>
                 Submit

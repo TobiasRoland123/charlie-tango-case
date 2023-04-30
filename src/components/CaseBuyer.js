@@ -17,7 +17,7 @@ export default function PotentialBuyer(props) {
     <>
       <article
         className={
-          !props.buyer.contacted ? "buyer_card" : "buyer_card buyer_card_chosen"
+          !props.buyer.chosen ? "buyer_card" : "buyer_card buyer_card_chosen"
         }
         // onClick={() => {
         //   props.updateBuyers(props.buyer.id);
@@ -32,6 +32,15 @@ export default function PotentialBuyer(props) {
             width: 300,
           }}
         >
+          {props.buyer.chosen === true ? (
+            <p className="chosen_explainer">
+              <small>
+                <i>Chosen by seller</i>
+              </small>
+            </p>
+          ) : (
+            ""
+          )}
           <strong>About the buyer:</strong>
           <p>{props.buyer.description}</p>
           {props.buyer.children === 0 ? (

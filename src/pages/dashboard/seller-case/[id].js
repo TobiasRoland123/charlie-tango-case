@@ -96,14 +96,25 @@ export default function Post({ data }) {
             )}
             <div className={`${styles.content} ${styles.relative_container}`}>
               <h2>Chosen buyers</h2>
-              <div className="chosen_container">
-                <ul></ul>
-                <button
-                  className={`${styles.button} ${styles.next_button}`}
-                  onClick={() => updateSellerInformation()}
-                >
-                  Choose buyers and go to next page
-                </button>
+              <div className="dashboard_chosen_container">
+                <ul>
+                  {sellerCase.buyers.map((buyer) =>
+                    buyer.chosen ? (
+                      <li key={buyer.id}>
+                        <span>Buyer ID: {buyer.id}</span>
+                        <span>
+                          (
+                          {buyer.maxPrice
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                          ,- DKK)
+                        </span>
+                      </li>
+                    ) : (
+                      ""
+                    )
+                  )}
+                </ul>
               </div>
             </div>
           </div>
