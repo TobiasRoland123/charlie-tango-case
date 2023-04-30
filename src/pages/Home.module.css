@@ -25,7 +25,8 @@
   border: 1px solid var(--dusty-aqua);
   margin-bottom: 1rem;
 }
-.content :first-child {
+.content :first-child,
+.content > h2 {
   margin-top: 0;
 }
 .content :last-child {
@@ -118,6 +119,17 @@
   font-size: 1.5em;
 }
 
+.personalInfo1_1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.personalInfoFlex {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 @media screen and (width < 768px) {
   .headline {
     font-size: 3.5rem;
@@ -127,6 +139,7 @@
   .headline_explainer {
     margin-block: 1.5em 1.5em;
     font-size: 1.1em;
+    text-align: left;
   }
 
   .grid_1_1,

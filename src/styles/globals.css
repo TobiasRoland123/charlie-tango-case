@@ -113,9 +113,10 @@ body {
 
 .chosen_container li {
   list-style: none;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
+  display: grid;
+  grid-template-areas: "id id id icon" "budget budget budget icon";
+  gap: 0.6rem 0.5rem;
+  font-size: 1rem;
   padding: 0.5em 0.8em;
   background-color: var(--dusty-blue-lighter);
   color: var(--black);
@@ -123,10 +124,19 @@ body {
   /* color: var(--dusty-aqua-light); */
 }
 
+.id_area {
+  grid-area: id;
+}
+.budget_area {
+  grid-area: budget;
+}
+
 .chosen_container li span:last-child {
+  grid-area: icon;
   display: flex;
   align-items: center;
-  font-size: 1.1rem;
+  justify-content: flex-end;
+  font-size: 1.2rem;
 }
 
 .dashboard_sellerCards .ant-card-head-title {

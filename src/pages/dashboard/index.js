@@ -60,7 +60,11 @@ export default function Dashboard() {
           });
         }
 
-        setSellers(data.response);
+        const sortedData = [...data.response].sort((a, b) =>
+          a.created_at > b.created_at ? -1 : 1
+        );
+
+        setSellers(sortedData);
       });
   }, [deleteRun]);
 

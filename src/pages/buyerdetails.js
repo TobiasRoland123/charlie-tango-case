@@ -133,7 +133,14 @@ export default function BuyerDetails(buyers) {
                 {data.map((buyer) =>
                   buyer.chosen ? (
                     <li key={buyer.id}>
-                      <span>Buyer ID: {buyer.id}</span>
+                      <span className="id_area">Buyer ID: {buyer.id}</span>
+                      <span className="budget_area">
+                        (
+                        {buyer.maxPrice
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                        ,- DKK)
+                      </span>
                       <DeleteOutlined onClick={() => updateBuyers(buyer.id)} />
                     </li>
                   ) : (
