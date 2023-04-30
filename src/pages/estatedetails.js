@@ -3,7 +3,7 @@ import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
 import Image from "next/image";
 import { estateTypes } from "@/data/estateTypes";
-import { InputNumber, Select } from "antd";
+import { InputNumber, Select, Button, Modal } from "antd";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import VisualSteps from "../components/VisualSteps";
@@ -18,7 +18,21 @@ export default function EstateDetails() {
   const [zipValidator, setZipValidator] = useState("");
   const [estateType, setEstateType] = useState("");
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
+  const [fullAdress, setFullAdress] = useState();
+  const [adress, setAdress] = useState();
+  const [dataF, setDataF] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   let estateDetails;
+
+  function showModal() {
+    setIsModalOpen(true);
+  }
+
+  const handleOk = () => {
+    setAdress("");
+    setIsModalOpen(false);
+  };
 
   const newEstates = [
     estateTypes.map((est) => ({
@@ -26,21 +40,20 @@ export default function EstateDetails() {
       label: est.name,
     })),
   ];
-
-  // console.log(newEstates);
-  //Routers
   const router = useRouter();
 
-  //UseEffect for the ZipCode validator
+  const adressChanged = (e) => {
+    setAdress(e.replace(/ /g, "%20"));
+  };
+
+  // UseEffect for the ZipCode validator
   useEffect(() => {
-    if (String(zip).length >= 4) {
-      fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setZipValidator(data);
-        });
-    }
-    // }
+    fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setZipValidator(data);
+      });
   }, [zip]);
 
   useEffect(() => {
@@ -67,24 +80,47 @@ export default function EstateDetails() {
     }
   }, [sellerDetails]);
 
-  //Const for changing states
+  useEffect(() => {
+    // console.log(adress);
+    fetch(`https://api.dataforsyningen.dk/autocomplete?q=${adress}&fuzzy=`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data", data.tekst);
+        const nyeForslag = data.map((adr) => ({
+          value: adr.forslagstekst.toLowerCase(),
+          label: adr.forslagstekst,
+        }));
+        // console.log(nyeForslag);
+        setDataF(nyeForslag);
+      });
+  }, [adress]);
+
   const priceChanged = (e) => {
-    // console.log(e);
     setPrice(e);
   };
-
   const sizeChanged = (e) => {
-    // console.log(e);
     setSize(e);
   };
 
-  const zipChanged = (e) => {
-    setZip(e);
-  };
+  function zipChanged(e) {
+    console.log("e.target", e);
+    const splitAddress1 = e.split(" ");
+    // Extract zip from the array
+    const cutZip = splitAddress1[splitAddress1.length - 2];
+    setZip(cutZip);
+
+    //Make all first letters Capital letters in the aray and make them a string again.
+    const splitAddress2 = e.split(" ");
+    for (let i = 0; i < splitAddress2.length; i++) {
+      splitAddress2[i] =
+        splitAddress2[i].charAt(0).toUpperCase() +
+        splitAddress2[i].slice(1).toLowerCase();
+    }
+    let newString = splitAddress2.join(" ");
+    setFullAdress(newString);
+  }
+
   const estateChanged = (e) => {
-    // console.log("hvad er e?", e);
-    // console.log(estateTypes[0].name);
-    // console.log(estateTypes.length);
     for (let i = 0; i < estateTypes.length; i++) {
       if (e === estateTypes[i].id) {
         setEstateType(estateTypes[i].id);
@@ -99,33 +135,44 @@ export default function EstateDetails() {
       size,
       zip,
       estateType,
+      full_address: fullAdress,
     };
-
-    updateSellerInformation();
-    // {
-    //   !zipValidator.navn
-    //     ? alert("ZipCode not Valid")
-    //     : updateSellerInformation();
-    // }
-
-    function updateSellerInformation() {
-      setSellerDetails({
-        price: price,
-        size: size,
-        zip: zip,
-        estateType: estateType,
-      });
-      router.push(
-        `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
-      );
+    {
+      !zipValidator.navn ? showModal() : updateSellerInformation(e);
     }
-    //Update useContext
   }
+
+  function updateSellerInformation(e) {
+    setSellerDetails({
+      price: price,
+      size: size,
+      zip: zip,
+      estateType: estateType,
+      full_address: fullAdress,
+    });
+    console.log(sellerDetails);
+    router.push(
+      `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
+    );
+  }
+
+  const showZip = () => console.log(zip);
+
   return (
     <>
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
+      <Modal title="Address is not correct" open={isModalOpen} onOk={handleOk}>
+        <p>Please make sure the full address is correct.</p>
+        <p>It needs to include:</p>
+        <ul>
+          <li>Street name</li>
+          <li>Street number</li>
+          <li>City name</li>
+          <li>Zip code</li>
+        </ul>
+      </Modal>
       <h1 className={styles.headline}>1. Estate Details</h1>
       <VisualSteps step={0} />
       <div className="wrapper">
@@ -169,39 +216,25 @@ export default function EstateDetails() {
                   required
                 />
               </label>
-              {/* <label>
-                <span className={styles.label}>Zip Code</span>
-                <InputNumber
-                  className={styles.formInput}
-                  name="zipCode"
-                  type="number"
-                  onChange={zipChanged}
-                  value={zip}
-                  required
-                />
-              </label> */}
               <label>
                 <span className={styles.label}>New Zip Code Test</span>
-                <ZipSelctor onChange={zipChanged} zip={zip}></ZipSelctor>
+                <Select
+                  className={styles.formInput}
+                  showSearch
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  onChange={zipChanged}
+                  onSearch={adressChanged}
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={dataF}
+                />
               </label>
               <label>
                 <span className={styles.label}>Estate type</span>
-                {/* <Select
-                  className={styles.formInput}
-                  onChange={estateChanged}
-                  options={newEstates[0]}
-                  defaultValue={sellerDetails.estateType}
-                >
-                  {/* {estateTypes.map((estate) => (
-                    <Select.Option
-                      key={estate.name}
-                      id={estate.id}
-                      value={estate.name}
-                    >
-                      {estate.name}
-                    </Select.Option>
-                  ))}
-                </Select> */}
                 <Select
                   className={styles.formInput}
                   showSearch
@@ -232,6 +265,7 @@ export default function EstateDetails() {
           </div>
         </div>
       </div>
+      <button onClick={showZip}>Show Zip</button>
     </>
   );
 }

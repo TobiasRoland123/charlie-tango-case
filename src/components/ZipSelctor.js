@@ -14,17 +14,19 @@ export default function ZipSelctor(props) {
   const [adress, setAdress] = useState();
   const [dataF, setDataF] = useState();
 
+  console.log(props);
+
   const adressChanged = (e) => {
-    console.log(e);
+    // console.log(e);
     setAdress(e.replace(/ /g, "%20"));
   };
 
-  const changeZip = (e) => {
-    console.log(e);
-    const splitAdress = e.split(" ");
-    const newZip = splitAdress[splitAdress.length - 2];
-    setZip(newZip);
-  };
+  // const newZip = (e) => {
+  //   console.log(e);
+  //   const splitAdress = e.split(" ");
+  //   const cutZip = splitAdress[splitAdress.length - 2];
+  //   return cutZip;
+  // };
 
   useEffect(() => {
     // console.log(adress);
@@ -46,7 +48,7 @@ export default function ZipSelctor(props) {
         showSearch
         placeholder="Select a person"
         optionFilterProp="children"
-        onChange={changeZip}
+        onChange={() => props.zipChanged}
         onSearch={adressChanged}
         filterOption={(input, option) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase())

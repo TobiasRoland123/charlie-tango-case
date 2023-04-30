@@ -117,9 +117,7 @@ export default function BuyerDetails(buyers) {
                 <span>{sellerDetails.size} &#13217;</span>
               </p>
               <p className="estateDetails_p">
-                <span>
-                  {sellerDetails.zip}, {zipL}
-                </span>
+                <span>{sellerDetails.full_address}</span>
               </p>
               <p className="estateDetails_p">
                 <span>{estateChecker(sellerDetails.estateType)}</span>
