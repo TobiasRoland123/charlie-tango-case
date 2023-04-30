@@ -1,7 +1,7 @@
 import Head from "next/head";
 import VisualSteps from "@/components/VisualSteps";
 import styles from "./Home.module.css";
-import { Input } from "antd";
+import { Input, Modal } from "antd";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { SellerInformation } from "./_app";
@@ -19,6 +19,40 @@ export default function EstateDetails() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState("Content of the modal");
+  const [buyerID, setBuyerID] = useState("");
+
+  const showModal = (id) => {
+    setOpen(true);
+    setBuyerID(id);
+  };
+
+  const handleOk = () => {
+    setModalText("Deleting buyer.");
+    updateBuyers(buyerID);
+    // setModalText("Are you sure you want to delete this buyer? You can't undo this change.");
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 1250);
+  };
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
 
   //routers
   const router = useRouter();
@@ -108,80 +142,98 @@ export default function EstateDetails() {
           We&lsquo;re almost there! Please fill out your contact information.
           We&lsquo;ll contact you within 48 hours of submission.
         </h3>
-        <div className={styles.content}>
-          <h2>Contact information</h2>
-          <div className={styles.grid_1_1}>
-            <form
-              onSubmit={onSubmit}
-              action="done"
-              method="GET"
-              className={styles.form}
-            >
-              <label>
-                <span className={styles.label}> Name </span>
-                <Input
-                  className={styles.formInput}
-                  name="name"
-                  required
-                  onChange={nameChanged}
-                  value={name}
-                />
-              </label>
-              <label>
-                <span className={styles.label}> Email </span>
-                <Input
-                  className={styles.formInput}
-                  name="email"
-                  required
-                  type="email"
-                  onChange={emailChanged}
-                  value={email}
-                />
-              </label>
-
-              <label>
-                <span className={styles.label}> Phone </span>
-                <Input
-                  className={styles.formInput}
-                  name="phone"
-                  required
-                  type="tel"
-                  onChange={phoneChanged}
-                  value={phone}
-                />
-              </label>
-
-              <label>
-                <p className={styles.label}>
-                  By checking the box you agree to our terms & condition. We may
-                  store your information in up to two years.
-                </p>
-                <input
-                  type="checkbox"
-                  id="scales"
-                  name="scales"
-                  onChange={consentChanged}
-                  required
-                />
-                <span>I accept EDC&lsquo;s terms and conditions.</span>
-              </label>
-              <button type="submit" className={styles.button}>
-                Submit
-              </button>
-            </form>
+        <div className={`${styles.content} ${styles.personalInfo1_1}`}>
+          <div>
+            <h2>Contact information</h2>
             <div>
+              <form
+                onSubmit={onSubmit}
+                action="done"
+                method="GET"
+                className={styles.form}
+              >
+                <label>
+                  <span className={styles.label}> Name </span>
+                  <Input
+                    className={styles.formInput}
+                    name="name"
+                    required
+                    onChange={nameChanged}
+                    value={name}
+                  />
+                </label>
+                <label>
+                  <span className={styles.label}> Email </span>
+                  <Input
+                    className={styles.formInput}
+                    name="email"
+                    required
+                    type="email"
+                    onChange={emailChanged}
+                    value={email}
+                  />
+                </label>
+
+                <label>
+                  <span className={styles.label}> Phone </span>
+                  <Input
+                    className={styles.formInput}
+                    name="phone"
+                    required
+                    type="tel"
+                    onChange={phoneChanged}
+                    value={phone}
+                  />
+                </label>
+
+                <label>
+                  <p className={styles.label}>
+                    By checking the box you agree to our terms & condition. We
+                    may store your information in up to two years.
+                  </p>
+                  <input
+                    type="checkbox"
+                    id="scales"
+                    name="scales"
+                    onChange={consentChanged}
+                    required
+                  />
+                  <span>I accept EDC&lsquo;s terms and conditions.</span>
+                </label>
+                <button type="submit" className={styles.button}>
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+          <div>
+            <h2>Chosen Buyers</h2>
+            <div className="chosen_container">
               <ul>
                 {theBuyers.map((buyer) =>
                   buyer.chosen ? (
                     <li key={buyer.id}>
                       <span>Buyer ID: {buyer.id}</span>
-                      <DeleteOutlined onClick={() => updateBuyers(buyer.id)} />
+                      <DeleteOutlined onClick={() => showModal(buyer.id)} />
+                      {/* <DeleteOutlined onClick={() => updateBuyers(buyer.id)} /> */}
                     </li>
                   ) : (
                     ""
                   )
                 )}
               </ul>
+              <Modal
+                title="Confirm deletion"
+                open={open}
+                onOk={handleOk}
+                confirmLoading={confirmLoading}
+                onCancel={handleCancel}
+              >
+                <p>
+                  Are you sure you want to delete this buyer? You can not undo
+                  this change.
+                </p>
+              </Modal>
             </div>
           </div>
         </div>
