@@ -125,6 +125,11 @@
   gap: 1rem;
 }
 
+.personalInfoFlex {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 @media screen and (width < 768px) {
   .headline {
     font-size: 3.5rem;
@@ -134,6 +139,7 @@
   .headline_explainer {
     margin-block: 1.5em 1.5em;
     font-size: 1.1em;
+    text-align: left;
   }
 
   .grid_1_1,

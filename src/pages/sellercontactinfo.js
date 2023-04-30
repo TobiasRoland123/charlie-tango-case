@@ -114,6 +114,7 @@ export default function EstateDetails() {
       }
       return buyer;
     });
+    console.log(updatedBuyers);
 
     setTheBuyers(updatedBuyers);
     // buyer.chosen = true;
@@ -142,100 +143,122 @@ export default function EstateDetails() {
           We&lsquo;re almost there! Please fill out your contact information.
           We&lsquo;ll contact you within 48 hours of submission.
         </h3>
-        <div className={`${styles.content} ${styles.personalInfo1_1}`}>
-          <div>
-            <h2>Contact information</h2>
+        <h3 className={styles.headline_explainer}>
+          If there are any buyers you regret picking, you can remove them before
+          submitting your contact information.
+        </h3>
+        <div
+          className={
+            width > 769
+              ? `${styles.content} ${styles.personalInfo1_1}`
+              : styles.personalInfoFlex
+          }
+        >
+          {/* <div className={`${styles.content} ${styles.personalInfo1_1}`}> */}
+          <article className={width < 769 ? styles.content : ""}>
             <div>
-              <form
-                onSubmit={onSubmit}
-                action="done"
-                method="GET"
-                className={styles.form}
-              >
-                <label>
-                  <span className={styles.label}> Name </span>
-                  <Input
-                    className={styles.formInput}
-                    name="name"
-                    required
-                    onChange={nameChanged}
-                    value={name}
-                  />
-                </label>
-                <label>
-                  <span className={styles.label}> Email </span>
-                  <Input
-                    className={styles.formInput}
-                    name="email"
-                    required
-                    type="email"
-                    onChange={emailChanged}
-                    value={email}
-                  />
-                </label>
+              <h2>Contact information</h2>
+              <div>
+                <form
+                  onSubmit={onSubmit}
+                  action="done"
+                  method="GET"
+                  className={styles.form}
+                >
+                  <label>
+                    <span className={styles.label}> Name </span>
+                    <Input
+                      className={styles.formInput}
+                      name="name"
+                      required
+                      onChange={nameChanged}
+                      value={name}
+                    />
+                  </label>
+                  <label>
+                    <span className={styles.label}> Email </span>
+                    <Input
+                      className={styles.formInput}
+                      name="email"
+                      required
+                      type="email"
+                      onChange={emailChanged}
+                      value={email}
+                    />
+                  </label>
 
-                <label>
-                  <span className={styles.label}> Phone </span>
-                  <Input
-                    className={styles.formInput}
-                    name="phone"
-                    required
-                    type="tel"
-                    onChange={phoneChanged}
-                    value={phone}
-                  />
-                </label>
+                  <label>
+                    <span className={styles.label}> Phone </span>
+                    <Input
+                      className={styles.formInput}
+                      name="phone"
+                      required
+                      type="tel"
+                      onChange={phoneChanged}
+                      value={phone}
+                    />
+                  </label>
 
-                <label>
-                  <p className={styles.label}>
-                    By checking the box you agree to our terms & condition. We
-                    may store your information in up to two years.
+                  <label>
+                    <p className={styles.label}>
+                      By checking the box you agree to our terms & condition. We
+                      may store your information in up to two years.
+                    </p>
+                    <input
+                      type="checkbox"
+                      id="scales"
+                      name="scales"
+                      onChange={consentChanged}
+                      required
+                    />
+                    <span>I accept EDC&lsquo;s terms and conditions.</span>
+                  </label>
+                  <button type="submit" className={styles.button}>
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </article>
+          <article className={width < 769 ? styles.content : ""}>
+            <div>
+              <h2>Chosen Buyers</h2>
+              <div className="chosen_container">
+                <ul>
+                  {theBuyers.map((buyer) =>
+                    buyer.chosen ? (
+                      <li key={buyer.id}>
+                        <span className="id_area">Buyer ID: {buyer.id}</span>
+                        <span className="budget_area">
+                          (
+                          {buyer.maxPrice
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                          ,- DKK)
+                        </span>
+                        <DeleteOutlined onClick={() => showModal(buyer.id)} />
+                        {/* <DeleteOutlined onClick={() => updateBuyers(buyer.id)} /> */}
+                      </li>
+                    ) : (
+                      ""
+                    )
+                  )}
+                </ul>
+                <Modal
+                  title="Confirm deletion"
+                  open={open}
+                  onOk={handleOk}
+                  confirmLoading={confirmLoading}
+                  onCancel={handleCancel}
+                >
+                  <p>
+                    Are you sure you want to delete this buyer? You can not undo
+                    this change.
                   </p>
-                  <input
-                    type="checkbox"
-                    id="scales"
-                    name="scales"
-                    onChange={consentChanged}
-                    required
-                  />
-                  <span>I accept EDC&lsquo;s terms and conditions.</span>
-                </label>
-                <button type="submit" className={styles.button}>
-                  Submit
-                </button>
-              </form>
+                </Modal>
+              </div>
             </div>
-          </div>
-          <div>
-            <h2>Chosen Buyers</h2>
-            <div className="chosen_container">
-              <ul>
-                {theBuyers.map((buyer) =>
-                  buyer.chosen ? (
-                    <li key={buyer.id}>
-                      <span>Buyer ID: {buyer.id}</span>
-                      <DeleteOutlined onClick={() => showModal(buyer.id)} />
-                      {/* <DeleteOutlined onClick={() => updateBuyers(buyer.id)} /> */}
-                    </li>
-                  ) : (
-                    ""
-                  )
-                )}
-              </ul>
-              <Modal
-                title="Confirm deletion"
-                open={open}
-                onOk={handleOk}
-                confirmLoading={confirmLoading}
-                onCancel={handleCancel}
-              >
-                <p>
-                  Are you sure you want to delete this buyer? You can not undo
-                  this change.
-                </p>
-              </Modal>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </>
