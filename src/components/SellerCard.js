@@ -68,11 +68,16 @@ export default function SellerCard(props) {
           <strong>Contact info:</strong>
 
           <p>
-            <a href={`mailto:${seller.email}`}>{`${seller.email}`}</a>
+            <a
+              className="dashboard_atag"
+              href={`mailto:${seller.email}`}
+            >{`${seller.email}`}</a>
           </p>
 
           <p>
-            <a href={`tel:${seller.phone}`}>{seller.phone}</a>
+            <a className="dashboard_atag" href={`tel:${seller.phone}`}>
+              {seller.phone}
+            </a>
           </p>
 
           <strong>About the property:</strong>

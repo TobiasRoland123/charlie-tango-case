@@ -171,6 +171,16 @@ body {
   right: 1.5rem;
 }
 
+.dashboard_atag {
+  color: var(--black);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+.dashboard_atag:hover {
+  text-decoration: underline var(--dusty-blue);
+  color: var(--dusty-blue);
+}
+
 @media screen and (width < 768px) {
   .estateDetails_p {
     display: grid;
