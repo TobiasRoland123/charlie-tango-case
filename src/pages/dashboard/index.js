@@ -66,6 +66,7 @@ export default function Dashboard() {
 
   function deleteEntry(seller) {
     console.log(`deleteEntry called with id: ${seller.id}`);
+    console.log(`DeleteRun:`, deleteRun);
     fetch("/api/delete-seller-case", {
       method: "POST",
       headers: {
@@ -75,7 +76,7 @@ export default function Dashboard() {
       body: JSON.stringify(seller.id),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setDeleteRun((old) => old + 1));
 
     // fetch(
     //   `https://pidnszjfygdazvvfuozh.supabase.co/rest/v1/edc_seller_helper?id=eq.${id}`,
@@ -91,6 +92,22 @@ export default function Dashboard() {
     //   .then((res) => res.json())
     //   .then((data) => console.log(data));
   }
+
+  // function sellerPatch(payload) {
+  //   const updates = payload;
+
+  //   console.log(`SellerPatch called with id: ${payload}`);
+  //   fetch("/api/patch-seller-case", {
+  //     method: "PATCH",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+
+  //     body: JSON.stringify(updates),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+  // }
 
   return (
     <>

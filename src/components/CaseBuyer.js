@@ -3,6 +3,7 @@ import { Card } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import styles from "../pages/Home.module.css";
 import { check } from "prettier";
+import { Button, Space, Modal } from "antd";
 
 export default function PotentialBuyer(props) {
   // console.table(props.buyer);
@@ -43,6 +44,14 @@ export default function PotentialBuyer(props) {
             </>
           )}
           <small>ID:{props.buyer.id}</small>
+
+          <Button
+            onClick={() => {
+              props.sellerPatch({ name: "Anders", id: props.sellerCase.id });
+            }}
+          >
+            buyer PATCH
+          </Button>
         </Card>
       </article>
     </>
