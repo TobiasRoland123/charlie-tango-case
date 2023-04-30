@@ -85,9 +85,7 @@ export default function Post({ data }) {
                   <span>{sellerCase.size} &#13217;</span>
                 </p>
                 <p className="estateDetails_p">
-                  <span>
-                    {sellerCase.zip}, {zipL}
-                  </span>
+                  <span>{sellerCase.full_address}</span>
                 </p>
                 <p className="estateDetails_p">
                   <span>{estateChecker(sellerCase.estateType)}</span>

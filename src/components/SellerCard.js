@@ -78,7 +78,7 @@ export default function SellerCard(props) {
           <strong>About the property:</strong>
           <p>{`${seller.price} DKK`}</p>
           <p>{`${seller.size} m2`}</p>
-          <p>{`Zip Code: ${seller.zip}`}</p>
+          <p>{`${seller.full_address}`}</p>
 
           <Anchor
             href={`/dashboard/seller-case/${seller.id}`}

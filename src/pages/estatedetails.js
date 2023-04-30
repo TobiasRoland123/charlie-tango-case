@@ -82,7 +82,9 @@ export default function EstateDetails() {
 
   useEffect(() => {
     // console.log(adress);
-    fetch(`https://api.dataforsyningen.dk/autocomplete?q=${adress}&fuzzy=`)
+    fetch(
+      `https://api.dataforsyningen.dk/autocomplete?q=${adress}&caretpos=18&fuzzy=`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("data", data.tekst);
@@ -217,11 +219,10 @@ export default function EstateDetails() {
                 />
               </label>
               <label>
-                <span className={styles.label}>New Zip Code Test</span>
+                <span className={styles.label}>Full address</span>
                 <Select
                   className={styles.formInput}
                   showSearch
-                  placeholder="Select a person"
                   optionFilterProp="children"
                   onChange={zipChanged}
                   onSearch={adressChanged}
