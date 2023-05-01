@@ -3,7 +3,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "@/pages/Home.module.css";
-import { Card } from "antd";
+import { Card, Radio } from "antd";
 import { useState, useEffect } from "react";
 import { estateTypes } from "@/data/estateTypes";
 import { stringify } from "querystring";
@@ -13,6 +13,7 @@ export default function Post({ data }) {
   const router = useRouter();
 
   const [sellerCase, setSellerCase] = useState(data.response[0]);
+  const [buyerFilter, setBuyerFilter] = useState(sellerCase.buyers);
   // const sellerCase = data.response[0];
   const [zipL, setZipL] = useState();
 
@@ -133,21 +134,33 @@ export default function Post({ data }) {
             </div>
           </div>
         </div>
-
-        <div className={`${styles.content} ${styles.buyerCards}`}>
-          {sellerCase.buyers.length === 0 ? (
-            <Card style={{ width: 300, marginTop: 16 }}></Card>
-          ) : (
-            sellerCase.buyers.map((buyer) => (
-              <CaseBuyer
-                buyer={buyer}
-                key={buyer.id}
-                updateBuyers={updateBuyers}
-                sellerPatch={sellerPatch}
-                sellerCase={sellerCase}
-              />
-            ))
-          )}
+        <div className="dashboard_filter_buttons">
+          <Radio.Group
+            defaultValue="*"
+            buttonStyle="solid"
+            onChange={adjustFilter}
+          >
+            <Radio.Button value="*">All buyers</Radio.Button>
+            <Radio.Button value={true}>Buyers chosen by seller</Radio.Button>
+            <Radio.Button value={false}>
+              Buyers not chosen by seller
+            </Radio.Button>
+          </Radio.Group>
+        </div>
+        <div>
+          <div className={`${styles.content} ${styles.buyerCards}`}>
+            {sellerCase.buyers.length === 0 ? (
+              <Card style={{ width: 300, marginTop: 16 }}></Card>
+            ) : (
+              buyerFilter.map((buyer) => (
+                <CaseBuyer
+                  buyer={buyer}
+                  key={buyer.id}
+                  updateBuyers={updateBuyers}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
       <pre>{JSON.stringify(data, null, 2)}</pre>
