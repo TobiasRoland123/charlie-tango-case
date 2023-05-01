@@ -181,6 +181,25 @@ body {
   color: var(--dusty-blue);
 }
 
+.dashboard_filter_buttons .ant-radio-button-wrapper {
+  border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+
+.dashboard_filter_buttons .ant-radio-button-wrapper:hover {
+  background-color: var(--dusty-blue-lighter);
+  color: var(--blue);
+}
+
+.dashboard_filter_buttons .ant-radio-button-wrapper-checked {
+  background-color: var(--blue) !important;
+  border-color: var(--blue) !important;
+}
+
+.dashboard_filter_buttons .ant-radio-button-wrapper-checked:hover {
+  color: white !important;
+}
+
 @media screen and (width < 768px) {
   .estateDetails_p {
     display: grid;

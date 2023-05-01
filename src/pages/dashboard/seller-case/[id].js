@@ -13,6 +13,7 @@ export default function Post({ data }) {
   const router = useRouter();
 
   const [sellerCase, setSellerCase] = useState(data.response[0]);
+  const [buyerFilter, setBuyerFilter] = useState(sellerCase.buyers);
   // const sellerCase = data.response[0];
   const [zipL, setZipL] = useState();
 
@@ -57,6 +58,29 @@ export default function Post({ data }) {
   }
 
   console.log(stringify(sellerCase.price));
+
+  //Filter function
+  const adjustFilter = (eve) => {
+    console.log(eve);
+    if (eve.target.value === "*") {
+      setBuyerFilter(sellerCase.buyers);
+    } else {
+      const newFilter = sellerCase.buyers.filter(
+        (buyer) => buyer.chosen === eve.target.value
+      );
+      setBuyerFilter(newFilter);
+    }
+  };
+  // eve.target.value === "*" ? setSellerCase(data.response[0]) : (
+  // for (let i = 0; i < sellerCase.buyers.length; i++) {
+  //   if (sellerCase.buyers[i].chosen === eve.target.value) {
+  //     console.log("eyy");
+  //   }
+  // }
+  // const theAdjustedFilter = sellerCase.filter(
+  //   (sellers) => sellerCase.chosen === eve.target.value
+  // );
+  // setSellerCase(theAdjustedFilter);
 
   return (
     <div>
@@ -118,10 +142,14 @@ export default function Post({ data }) {
           </div>
         </div>
         <div className="dashboard_filter_buttons">
-          <Radio.Group defaultValue="*" buttonStyle="solid">
+          <Radio.Group
+            defaultValue="*"
+            buttonStyle="solid"
+            onChange={adjustFilter}
+          >
             <Radio.Button value="*">All buyers</Radio.Button>
-            <Radio.Button value="chosen">Buyers chosen by seller</Radio.Button>
-            <Radio.Button value="notChosen">
+            <Radio.Button value={true}>Buyers chosen by seller</Radio.Button>
+            <Radio.Button value={false}>
               Buyers not chosen by seller
             </Radio.Button>
           </Radio.Group>
@@ -131,7 +159,7 @@ export default function Post({ data }) {
             {sellerCase.buyers.length === 0 ? (
               <Card style={{ width: 300, marginTop: 16 }}></Card>
             ) : (
-              sellerCase.buyers.map((buyer) => (
+              buyerFilter.map((buyer) => (
                 <CaseBuyer
                   buyer={buyer}
                   key={buyer.id}
