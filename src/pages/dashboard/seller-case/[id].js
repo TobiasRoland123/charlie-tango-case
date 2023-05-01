@@ -58,6 +58,22 @@ export default function Post({ data }) {
 
   console.log(stringify(sellerCase.price));
 
+  function sellerPatch(payload) {
+    const updates = payload;
+
+    console.log(`SellerPatch called with id: ${payload}`);
+    fetch("/api/patch-seller-case", {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+
+      body: JSON.stringify(updates),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
+
   return (
     <div>
       <Head>
@@ -127,6 +143,8 @@ export default function Post({ data }) {
                 buyer={buyer}
                 key={buyer.id}
                 updateBuyers={updateBuyers}
+                sellerPatch={sellerPatch}
+                sellerCase={sellerCase}
               />
             ))
           )}

@@ -11,7 +11,6 @@ export default async function handler(req, res) {
         apikey: process.env.SUPABASE_KEY,
       },
     }
-  )
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+  ).then((res) => res.json());
+  // .then((data) => console.log(data));
 }
