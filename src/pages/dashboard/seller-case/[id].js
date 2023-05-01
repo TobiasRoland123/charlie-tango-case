@@ -75,6 +75,18 @@ export default function Post({ data }) {
       .then((data) => console.log(data));
   }
 
+  const adjustFilter = (eve) => {
+    console.log(eve);
+    if (eve.target.value === "*") {
+      setBuyerFilter(sellerCase.buyers);
+    } else {
+      const newFilter = sellerCase.buyers.filter(
+        (buyer) => buyer.chosen === eve.target.value
+      );
+      setBuyerFilter(newFilter);
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -157,6 +169,8 @@ export default function Post({ data }) {
                   buyer={buyer}
                   key={buyer.id}
                   updateBuyers={updateBuyers}
+                  sellerPatch={sellerPatch}
+                  sellerCase={sellerCase}
                 />
               ))
             )}
