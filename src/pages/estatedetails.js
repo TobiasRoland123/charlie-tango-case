@@ -171,7 +171,6 @@ export default function EstateDetails() {
         <ul>
           <li>Street name</li>
           <li>Street number</li>
-          <li>City name</li>
           <li>Zip code</li>
         </ul>
       </Modal>
