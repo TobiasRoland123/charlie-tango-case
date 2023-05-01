@@ -81,7 +81,9 @@ export default function SellerCard(props) {
           </p>
 
           <strong>About the property:</strong>
-          <p>{`${seller.price} DKK`}</p>
+          <p>{`${seller.price
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK`}</p>
           <p>{`${seller.size} m2`}</p>
           <p>{`${seller.full_address}`}</p>
 
