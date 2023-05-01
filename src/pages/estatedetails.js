@@ -51,7 +51,7 @@ export default function EstateDetails() {
     fetch(`https://api.dataforsyningen.dk/postnumre/${zip}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setZipValidator(data);
       });
   }, [zip]);
@@ -87,7 +87,7 @@ export default function EstateDetails() {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data.tekst);
+        // console.log("data", data.tekst);
         const nyeForslag = data.map((adr) => ({
           value: adr.forslagstekst.toLowerCase(),
           label: adr.forslagstekst,
@@ -105,7 +105,7 @@ export default function EstateDetails() {
   };
 
   function zipChanged(e) {
-    console.log("e.target", e);
+    // console.log("e.target", e);
     const splitAddress1 = e.split(" ");
     // Extract zip from the array
     const cutZip = splitAddress1[splitAddress1.length - 2];
@@ -152,7 +152,7 @@ export default function EstateDetails() {
       estateType: estateType,
       full_address: fullAdress,
     });
-    console.log(sellerDetails);
+    // console.log(sellerDetails);
     router.push(
       `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
     );
@@ -222,6 +222,8 @@ export default function EstateDetails() {
                 <Select
                   className={styles.formInput}
                   showSearch
+                  searchV={fullAdress}
+                  defaultActiveFirstOption="true"
                   optionFilterProp="children"
                   onChange={zipChanged}
                   onSearch={adressChanged}
