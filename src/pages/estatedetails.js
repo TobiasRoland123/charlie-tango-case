@@ -44,7 +44,7 @@ export default function EstateDetails() {
   const router = useRouter();
 
   const adressChanged = (e) => {
-    setAdress(e.replace(/ /g, "%20"));
+    setAdress(e.replace(/ /g, "%20").replace(/,/g, ""));
   };
 
   // UseEffect for the ZipCode validator
