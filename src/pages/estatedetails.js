@@ -21,6 +21,7 @@ export default function EstateDetails() {
   const [fullAdress, setFullAdress] = useState();
   const [adress, setAdress] = useState();
   const [dataF, setDataF] = useState();
+  const [storedSearch, setStoredSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   let estateDetails;
@@ -120,6 +121,8 @@ export default function EstateDetails() {
     }
     let newString = splitAddress2.join(" ");
     setFullAdress(newString);
+    setStoredSearch(newString);
+    setAdress(newString.replace(/ /g, "%20"));
   }
 
   const estateChanged = (e) => {
@@ -158,7 +161,8 @@ export default function EstateDetails() {
     );
   }
 
-  const showZip = () => console.log(zip);
+  const showSearch = () => console.log(storedSearch);
+  const showAdress = () => console.log(adress);
 
   return (
     <>
@@ -222,7 +226,8 @@ export default function EstateDetails() {
                 <Select
                   className={styles.formInput}
                   showSearch
-                  searchV={fullAdress}
+                  search={storedSearch}
+                  // search={fullAdress}
                   defaultActiveFirstOption="true"
                   optionFilterProp="children"
                   onChange={zipChanged}
@@ -267,7 +272,8 @@ export default function EstateDetails() {
           </div>
         </div>
       </div>
-      <button onClick={showZip}>Show Zip</button>
+      <button onClick={showSearch}>Show Search</button>
+      <button onClick={showAdress}>Show Address</button>
     </>
   );
 }
