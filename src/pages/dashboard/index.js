@@ -137,6 +137,7 @@ export default function Dashboard() {
                   deleteEntry={deleteEntry}
                   deleteKey={seller}
                   setDeleteRun={setDeleteRun}
+                  sellers={sellers}
                 />
               ))
             )}

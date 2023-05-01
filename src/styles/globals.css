@@ -17,6 +17,7 @@
   --yellow: #fec315; /* Accent color; */
   --white: #fff;
   --black: #000;
+  --light-green: #d3f0c0;
 
   /* Fonts */
   --font-sans: "Lato", sans-serif;
@@ -90,6 +91,11 @@ body {
 .buyer_card_chosen .ant-card,
 .buyer_card_chosen .ant-card-head-title {
   background-color: var(--dusty-blue-lighter);
+  color: var(--black);
+}
+
+.buyer_card_contacted .ant-card {
+  background-color: var(--light-green);
   color: var(--black);
 }
 
