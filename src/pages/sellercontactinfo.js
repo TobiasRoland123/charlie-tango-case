@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function EstateDetails() {
   //states and useContext
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
-  const [theBuyers, setTheBuyers] = useState(sellerDetails.buyers);
+  const [theBuyers, setTheBuyers] = useState(sellerDetails.buyers || []);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
