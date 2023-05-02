@@ -110,7 +110,7 @@ body {
 
 .buyer_card_contacted .ant-card .ant-card-body,
 .dashboard_sellerCards .ant-card .ant-card-body {
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.5rem 1rem;
 }
 
 .buyer_card_chosen .anticon {
