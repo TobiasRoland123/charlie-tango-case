@@ -98,7 +98,6 @@ export default function VisualSteps(props) {
           },
         ]}
       />
-      <button onClick={() => console.log(width)}>Width</button>
     </>
   );
 }
