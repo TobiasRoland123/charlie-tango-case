@@ -263,6 +263,11 @@ body {
   color: var(--white);
 }
 
+.dashboard_back_buttons:hover {
+  background-color: var(--dusty-blue);
+  border-color: var(--dusty-blue);
+}
+
 @media screen and (width < 768px) {
   .estateDetails_p {
     display: grid;
