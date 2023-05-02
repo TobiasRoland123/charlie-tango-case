@@ -48,7 +48,7 @@ export default function EstateDetails() {
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    if (typeof window === "undefined") {
+    if (typeof window !== "undefined") {
       /* we're on the server */
       window.addEventListener("resize", handleResizeWindow);
       return () => {
