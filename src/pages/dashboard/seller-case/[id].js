@@ -18,15 +18,15 @@ export default function Post({ data }) {
   // const sellerCase = data.response[0];
   const [zipL, setZipL] = useState();
 
-  const useWidth = () => {
-    const [width, setWidth] = useState(0);
-    const handleResize = () => setWidth(window.innerWidth);
-    useEffect(() => {
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, [width]);
-    return width;
-  };
+  // const useWidth = () => {
+  //   const [width, setWidth] = useState(0);
+  //   const handleResize = () => setWidth(window.innerWidth);
+  //   useEffect(() => {
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }, [width]);
+  //   return width;
+  // };
 
   // useEffect(() => {
   //   const handleResizeWindow = () => setWidth(window.innerWidth);
@@ -185,7 +185,7 @@ export default function Post({ data }) {
           </div>
         </div>
         <div className="dashboard_filter_buttons">
-          {useWidth < 560 ? (
+          <div className="filterUnder768">
             <label>
               <span className={styles.label}>Select filter: </span>
               <Select
@@ -199,7 +199,8 @@ export default function Post({ data }) {
                 ]}
               />
             </label>
-          ) : (
+          </div>
+          <div className="filterOver768">
             <Radio.Group
               defaultValue={filterValue === undefined ? "*" : filterValue}
               value={filterValue === undefined ? "*" : filterValue}
@@ -212,7 +213,7 @@ export default function Post({ data }) {
                 Buyers not chosen by seller
               </Radio.Button>
             </Radio.Group>
-          )}
+          </div>
         </div>
         <div>
           <div className={`${styles.content} ${styles.buyerCards}`}>
