@@ -80,10 +80,15 @@
   width: 100%;
 }
 
-.visualSteps {
+.visualStepsHor,
+.visualStepsVer {
   max-width: 768px;
   margin-inline: auto;
   margin-block: 2em;
+}
+
+.visualStepsVer {
+  display: none !important;
 }
 
 .grid_1_1 {
@@ -157,10 +162,14 @@
   .headline_end_explainer1 {
     margin-top: 1em;
   }
-  .visualSteps {
+  .visualStepsVer {
+    display: block !important;
     max-width: 157px;
     margin-inline: auto;
     margin-block: 2em;
+  }
+  .visualStepsHor {
+    display: none !important;
   }
 }
 @media screen and (width < 500px) {

@@ -45,9 +45,36 @@ export default function VisualSteps(props) {
   return (
     <>
       <Steps
+        className={styles.visualStepsVer}
+        size="small"
+        direction="vertical"
+        items={[
+          {
+            title: "Estate details",
+            status: checkStatus(0),
+            // icon: <HomeFilled />,
+          },
+          {
+            title: "Potential Buyers",
+            status: checkStatus(1),
+            // icon: <ContactsFilled />,
+          },
+          {
+            title: "Personal info",
+            status: checkStatus(2),
+            // icon: <EditFilled />,
+          },
+          {
+            title: "Done!",
+            status: checkStatus(3),
+            // icon: <SmileOutlined />,
+          },
+        ]}
+      />
+      <Steps
         className={styles.visualStepsHor}
         size="small"
-        direction={"horizontal"}
+        direction="horizontal"
         items={[
           {
             title: "Estate details",
