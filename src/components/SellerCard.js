@@ -140,6 +140,8 @@ export default function SellerCard(props) {
           {seller.contacted === false ? <p>false</p> : <p>true</p>}
 
           <Switch
+            // className={seller.contacted ? "switchChecked" : ""}
+
             checked={contacted ? true : false}
             onChange={contactedOnChange}
           />

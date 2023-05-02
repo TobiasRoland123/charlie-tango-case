@@ -163,6 +163,7 @@
     margin-block: 2em;
   }
 }
+
 @media screen and (width < 500px) {
   .headline {
     font-size: 3rem;

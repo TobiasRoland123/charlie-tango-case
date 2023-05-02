@@ -165,6 +165,9 @@ body {
   max-width: 175px;
 }
 
+.switchChecked {
+  background-color: var(--yellow);
+}
 .dashboard_anchor {
   position: absolute;
   top: 16px;
