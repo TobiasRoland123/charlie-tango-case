@@ -3,7 +3,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "@/pages/Home.module.css";
-import { Card, Radio } from "antd";
+import { Card, Radio, Select } from "antd";
 import { useState, useEffect } from "react";
 import { estateTypes } from "@/data/estateTypes";
 import { stringify } from "querystring";
@@ -14,8 +14,18 @@ export default function Post({ data }) {
 
   const [sellerCase, setSellerCase] = useState(data.response[0]);
   const [buyerFilter, setBuyerFilter] = useState(sellerCase.buyers);
+  const [filterValue, setFilterValue] = useState();
+  const [width, setWidth] = useState(window.innerWidth);
   // const sellerCase = data.response[0];
   const [zipL, setZipL] = useState();
+
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
 
   useEffect(() => {
     fetch(`https://api.dataforsyningen.dk/postnumre/${sellerCase.zip}`)
@@ -87,6 +97,18 @@ export default function Post({ data }) {
     }
   };
 
+  const selectAdjustFilter = (eve) => {
+    console.log(eve);
+    if (eve === "*") {
+      setBuyerFilter(sellerCase.buyers);
+    } else {
+      const newFilter = sellerCase.buyers.filter(
+        (buyer) => buyer.chosen === eve
+      );
+      setBuyerFilter(newFilter);
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -146,18 +168,34 @@ export default function Post({ data }) {
             </div>
           </div>
         </div>
+        <button onClick={() => console.log(buyerFilter)}>Eyy</button>
         <div className="dashboard_filter_buttons">
-          <Radio.Group
-            defaultValue="*"
-            buttonStyle="solid"
-            onChange={adjustFilter}
-          >
-            <Radio.Button value="*">All buyers</Radio.Button>
-            <Radio.Button value={true}>Buyers chosen by seller</Radio.Button>
-            <Radio.Button value={false}>
-              Buyers not chosen by seller
-            </Radio.Button>
-          </Radio.Group>
+          {width < 560 ? (
+            <label>
+              <span className={styles.label}>Select filter: </span>
+              <Select
+                defaultValue={buyerFilter === undefined ? "*" : buyerFilter}
+                onChange={selectAdjustFilter}
+                options={[
+                  { value: "*", label: "All buyers" },
+                  { value: true, label: "All buyers chosen by seller" },
+                  { value: false, label: "All buyers NOT chosen by seller" },
+                ]}
+              />
+            </label>
+          ) : (
+            <Radio.Group
+              defaultValue={buyerFilter === undefined ? "*" : buyerFilter}
+              buttonStyle="solid"
+              onChange={adjustFilter}
+            >
+              <Radio.Button value="*">All buyers</Radio.Button>
+              <Radio.Button value={true}>Buyers chosen by seller</Radio.Button>
+              <Radio.Button value={false}>
+                Buyers not chosen by seller
+              </Radio.Button>
+            </Radio.Group>
+          )}
         </div>
         <div>
           <div className={`${styles.content} ${styles.buyerCards}`}>
