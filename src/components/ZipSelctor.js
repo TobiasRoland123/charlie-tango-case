@@ -14,8 +14,6 @@ export default function ZipSelctor(props) {
   const [adress, setAdress] = useState();
   const [dataF, setDataF] = useState();
 
-  console.log(props);
-
   const adressChanged = (e) => {
     // console.log(e);
     setAdress(e.replace(/ /g, "%20"));
@@ -33,7 +31,7 @@ export default function ZipSelctor(props) {
     fetch(`https://api.dataforsyningen.dk/autocomplete?q=${adress}&fuzzy=`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data.tekst);
+        // console.log("data", data.tekst);
         const nyeForslag = data.map((adr) => ({
           value: adr.forslagstekst.toLowerCase(),
           label: adr.forslagstekst,

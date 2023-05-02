@@ -52,7 +52,7 @@ export default function EstateDetails() {
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
+    // console.log("Clicked cancel button");
     setOpen(false);
   };
 
@@ -73,7 +73,7 @@ export default function EstateDetails() {
   // console.log("theBuyers", theBuyers);
 
   function showSellerDetails() {
-    console.log(`this is the current sellerDetails: `, sellerDetails);
+    // console.log(`this is the current sellerDetails: `, sellerDetails);
   }
 
   const nameChanged = (e) => {
@@ -82,7 +82,7 @@ export default function EstateDetails() {
   };
 
   const emailChanged = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setEmail(e.target.value);
   };
 
@@ -117,7 +117,7 @@ export default function EstateDetails() {
   // console.log("sellerDetails", sellerDetails.buyers);
 
   function updateBuyers(id) {
-    console.log(id);
+    // console.log(id);
     // console.log(seller);
     const updatedBuyers = theBuyers.map((buyer) => {
       if (buyer.id === id) {
@@ -127,7 +127,7 @@ export default function EstateDetails() {
       }
       return buyer;
     });
-    console.log(updatedBuyers);
+    // console.log(updatedBuyers);
 
     setTheBuyers(updatedBuyers);
     // buyer.chosen = true;

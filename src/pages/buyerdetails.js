@@ -99,8 +99,8 @@ export default function BuyerDetails(buyers) {
       <VisualSteps step={1} />
       <div className="wrapper">
         <h3 className={styles.headline_explainer}>
-          We found potential buyers, who matches your estate details. Click on
-          the buyers that you want us to contact for you!
+          We found potential buyers, who is looking for estates matching yours!{" "}
+          {"\n"} Click on the buyers that you want us to contact on your behalf.
         </h3>
         <div className={styles.grid_1_2}>
           {zipL === "" ? (

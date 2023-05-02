@@ -35,7 +35,7 @@ export default function SellerCard(props) {
 
   //Handels cancel on modal
   const handleCancel = () => {
-    console.log("Clicked cancel button");
+    // console.log("Clicked cancel button");
     setOpen(false);
   };
 
@@ -49,7 +49,7 @@ export default function SellerCard(props) {
 
   function contactedOnChange() {
     seller.contacted ? (seller.contacted = false) : (seller.contacted = true);
-    console.log("seller.contacted is now:", seller.contacted);
+    // console.log("seller.contacted is now:", seller.contacted);
     logger();
 
     sellerPatch({ contacted: seller.contacted, id: seller.id });
@@ -57,13 +57,13 @@ export default function SellerCard(props) {
 
   function logger() {
     setContacted(seller.contacted);
-    console.log("sellerState:", contacted);
+    // console.log("sellerState:", contacted);
   }
 
   function sellerPatch(payload) {
     const updates = payload;
 
-    console.log(`SellerPatch called with id: ${payload.id}`);
+    // console.log(`SellerPatch called with id: ${payload.id}`);
     fetch("/api/patch-seller-case", {
       method: "PATCH",
       headers: {

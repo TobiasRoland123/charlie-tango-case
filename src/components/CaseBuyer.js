@@ -11,8 +11,6 @@ export default function PotentialBuyer(props) {
   const [sellerCase, setSellerCase] = useState(props.sellerCase);
   const [contacted, setContacted] = useState(buyer.contacted);
 
-  const handleClick = (e) => console.log(e);
-
   function contactedOnChange() {
     buyer.contacted ? (buyer.contacted = false) : (buyer.contacted = true);
     // console.log("buyer.contacted is now:", buyer.contacted);
@@ -24,13 +22,13 @@ export default function PotentialBuyer(props) {
 
   function logger() {
     setContacted(buyer.contacted);
-    console.log("sellerState:", contacted);
+    // console.log("sellerState:", contacted);
   }
 
   function sellerPatch(payload) {
     const updates = payload;
 
-    console.log(`SellerPatch called with id: ${payload.id}`);
+    // console.log(`SellerPatch called with id: ${payload.id}`);
     fetch("/api/patch-seller-case", {
       method: "PATCH",
       headers: {

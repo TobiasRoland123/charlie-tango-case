@@ -8,7 +8,6 @@ export default function PotentialBuyer(props) {
   // console.table(props.buyer);
   const [buyer, setBuyer] = useState(props.buyer);
 
-  const handleClick = (e) => console.log(e);
   // e.buyer === true ? setBuyer((e.buyer = false)) : setBuyer((e.buyer = true)));
 
   // console.log("buyer", buyer);
