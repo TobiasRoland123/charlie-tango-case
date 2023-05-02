@@ -83,19 +83,21 @@ export default function EstateDetails() {
 
   useEffect(() => {
     // console.log(adress);
-    fetch(
-      `https://api.dataforsyningen.dk/autocomplete?q=${adress}&caretpos=18&fuzzy=`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log("data", data.tekst);
-        const nyeForslag = data.map((adr) => ({
-          value: adr.forslagstekst.toLowerCase(),
-          label: adr.forslagstekst,
-        }));
-        // console.log(nyeForslag);
-        setDataF(nyeForslag);
-      });
+    if (adress) {
+      fetch(
+        `https://api.dataforsyningen.dk/autocomplete?q=${adress}&caretpos=18&fuzzy=`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log("data", data.tekst);
+          const nyeForslag = data.map((adr) => ({
+            value: adr.forslagstekst.toLowerCase(),
+            label: adr.forslagstekst,
+          }));
+          // console.log(nyeForslag);
+          setDataF(nyeForslag);
+        });
+    }
   }, [adress]);
 
   const priceChanged = (e) => {
