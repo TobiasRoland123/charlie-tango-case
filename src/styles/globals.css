@@ -192,6 +192,10 @@ body {
   border-bottom: none;
 }
 
+.dashboard_filter_buttons .ant-radio-button-wrapper::before {
+  width: 0px;
+}
+
 .dashboard_filter_buttons .ant-radio-button-wrapper:hover {
   background-color: var(--dusty-blue-lighter);
   color: var(--blue);
@@ -210,6 +214,10 @@ body {
   .estateDetails_p {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard_filter_buttons .ant-select {
+    width: 100%;
   }
 }
 @media screen and (width < 500px) {
