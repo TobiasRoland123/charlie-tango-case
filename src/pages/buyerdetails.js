@@ -2,7 +2,7 @@ import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
-import { Avatar, Card, Skeleton, Switch } from "antd";
+import { Avatar, Card, Skeleton, Switch, Badge } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { SellerInformation } from "./_app";
 import { estateTypes } from "@/data/estateTypes";
