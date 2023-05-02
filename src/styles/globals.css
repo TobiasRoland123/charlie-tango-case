@@ -177,6 +177,11 @@ body {
   right: 1.5rem;
 }
 
+.chosen_explainer_left {
+  position: absolute;
+  bottom: 0;
+}
+
 .dashboard_atag {
   color: var(--black);
   text-decoration: none;
@@ -212,6 +217,17 @@ body {
 
 .filterUnder768 {
   display: none !important;
+}
+
+.familyMembers {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+}
+
+.familyMemberBlock {
+  display: flex;
+  align-items: end;
 }
 
 @media screen and (width < 768px) {
