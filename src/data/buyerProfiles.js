@@ -15,7 +15,12 @@ function toNearestHundredThousand(number) {
  * Generate a fake profile for a potential buyer.
  * Feel free to adjust this date to fit your needs.
  */
-export function generateBuyerProfile({ price = 5000000, size = 100 } = {}) {
+export function generateBuyerProfile({
+  price = 5000000,
+  size = 100,
+  // we added etstatetype
+  estateType,
+} = {}) {
   const today = new Date();
   const endDate = new Date();
   // Set the end date to 3 months from now.
@@ -24,6 +29,8 @@ export function generateBuyerProfile({ price = 5000000, size = 100 } = {}) {
   const result = {
     id: faker.datatype.uuid().split("-")[0],
     /** Maximum price in kr */
+
+    //We have changes min price, to be equal to the asked price, since you are not interrested in getting lower offers.
     maxPrice: toNearestHundredThousand(
       faker.datatype.number({
         min: price,
@@ -40,6 +47,7 @@ export function generateBuyerProfile({ price = 5000000, size = 100 } = {}) {
     description: "",
     /** The type of estate the buyer is looking for. This is just the ID, so we can find the value in `estateTypes.js` */
     estateType:
+      estateType ||
       estateTypes[
         faker.datatype.number({ min: 0, max: estateTypes.length - 1 })
       ].id,
@@ -89,6 +97,7 @@ export function generateBuyerProfile({ price = 5000000, size = 100 } = {}) {
  */
 export function generateBuyerProfiles({
   zipCode,
+  estateType = undefined,
   price = undefined,
   size = undefined,
   minResults = 0,
@@ -104,6 +113,6 @@ export function generateBuyerProfiles({
         max: maxResults,
       }),
     },
-    () => generateBuyerProfile({ price, size })
+    () => generateBuyerProfile({ price, size, estateType })
   );
 }

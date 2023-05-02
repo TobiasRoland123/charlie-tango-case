@@ -157,7 +157,7 @@ export default function EstateDetails() {
     });
     // console.log(sellerDetails);
     router.push(
-      `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}`
+      `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}&estateType=${estateType}`
     );
   }
 

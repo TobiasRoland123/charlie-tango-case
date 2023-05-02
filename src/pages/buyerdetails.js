@@ -26,7 +26,7 @@ export default function BuyerDetails(buyers) {
 
     //if !useContext.buyers ? "Fetch" : setData(useContext.buyers)
     fetch(
-      `/api/find-buyers?price=${query.price}&size=${query.size}&zipCode=${query.zipCode}`
+      `/api/find-buyers?price=${query.price}&size=${query.size}&zipCode=${query.zipCode}&estateType=${query.estateType}`
     )
       .then((res) => res.json())
       .then((data) => {
