@@ -25,6 +25,7 @@
   border: 1px solid var(--dusty-aqua);
   margin-bottom: 1rem;
 }
+
 .content :first-child,
 .content > h2 {
   margin-top: 0;
@@ -80,10 +81,15 @@
   width: 100%;
 }
 
-.visualSteps {
+.visualStepsHor,
+.visualStepsVer {
   max-width: 768px;
   margin-inline: auto;
   margin-block: 2em;
+}
+
+.visualStepsVer {
+  display: none !important;
 }
 
 .grid_1_1 {
@@ -125,11 +131,6 @@
   gap: 1rem;
 }
 
-.personalInfoFlex {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
 @media screen and (width < 768px) {
   .headline {
     font-size: 3.5rem;
@@ -157,10 +158,22 @@
   .headline_end_explainer1 {
     margin-top: 1em;
   }
-  .visualSteps {
+
+  .personalInfoFlex {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: transparent;
+    border: transparent;
+  }
+
+  .visualStepsVer {
+    display: block !important;
     max-width: 157px;
     margin-inline: auto;
     margin-block: 2em;
+  }
+  .visualStepsHor {
+    display: none !important;
   }
 }
 @media screen and (width < 500px) {

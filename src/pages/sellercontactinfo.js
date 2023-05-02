@@ -25,15 +25,15 @@ export default function EstateDetails() {
   const [modalText, setModalText] = useState("Content of the modal");
   const [buyerID, setBuyerID] = useState("");
 
-  const useWidth = () => {
-    const [width, setWidth] = useState(0);
-    const handleResize = () => setWidth(window.innerWidth);
-    useEffect(() => {
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, [width]);
-    return width;
-  };
+  // const useWidth = () => {
+  //   const [width, setWidth] = useState(0);
+  //   const handleResize = () => setWidth(window.innerWidth);
+  //   useEffect(() => {
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }, [width]);
+  //   return width;
+  // };
 
   const showModal = (id) => {
     setOpen(true);
@@ -56,16 +56,16 @@ export default function EstateDetails() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    if (typeof window !== "undefined") {
-      /* we're on the server */
-      window.addEventListener("resize", handleResizeWindow);
-      return () => {
-        window.removeEventListener("resize", handleResizeWindow);
-      };
-    }
-  }, []);
+  // useEffect(() => {
+  //   const handleResizeWindow = () => setWidth(window.innerWidth);
+  //   if (typeof window !== "undefined") {
+  //     /* we're on the server */
+  //     window.addEventListener("resize", handleResizeWindow);
+  //     return () => {
+  //       window.removeEventListener("resize", handleResizeWindow);
+  //     };
+  //   }
+  // }, []);
 
   //routers
   const router = useRouter();
@@ -161,14 +161,10 @@ export default function EstateDetails() {
           submitting your contact information.
         </h3>
         <div
-          className={
-            useWidth > 769
-              ? `${styles.content} ${styles.personalInfo1_1}`
-              : styles.personalInfoFlex
-          }
+          className={`${styles.content} ${styles.personalInfo1_1} ${styles.personalInfoFlex}`}
         >
           {/* <div className={`${styles.content} ${styles.personalInfo1_1}`}> */}
-          <article className={width < 769 ? styles.content : ""}>
+          <article className={styles.content}>
             <div>
               <h2>Contact information</h2>
               <div>
@@ -233,7 +229,7 @@ export default function EstateDetails() {
               </div>
             </div>
           </article>
-          <article className={width < 769 ? styles.content : ""}>
+          <article className={styles.content}>
             <div>
               <h2>Chosen Buyers</h2>
               <div className="chosen_container">

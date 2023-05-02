@@ -210,6 +210,10 @@ body {
   color: white !important;
 }
 
+.filterUnder768 {
+  display: none !important;
+}
+
 @media screen and (width < 768px) {
   .estateDetails_p {
     display: grid;
@@ -218,6 +222,14 @@ body {
 
   .dashboard_filter_buttons .ant-select {
     width: 100%;
+  }
+
+  .filterUnder768 {
+    display: block !important;
+  }
+
+  .filterOver768 {
+    display: none !important;
   }
 }
 @media screen and (width < 500px) {
