@@ -13,10 +13,13 @@ export default function VisualSteps(props) {
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
+    if (typeof window === "undefined") {
+      /* we're on the server */
+      window.addEventListener("resize", handleResizeWindow);
+      return () => {
+        window.removeEventListener("resize", handleResizeWindow);
+      };
+    }
   }, []);
   // console.log(props.current);
 
@@ -60,6 +63,7 @@ export default function VisualSteps(props) {
           },
         ]}
       />
+      <button onClick={() => console.log(width)}>Width</button>
     </>
   );
 }

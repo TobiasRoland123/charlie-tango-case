@@ -21,10 +21,13 @@ export default function Post({ data }) {
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
+    if (typeof window === "undefined") {
+      /* we're on the server */
+      window.addEventListener("resize", handleResizeWindow);
+      return () => {
+        window.removeEventListener("resize", handleResizeWindow);
+      };
+    }
   }, []);
 
   useEffect(() => {
