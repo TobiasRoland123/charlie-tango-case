@@ -89,11 +89,13 @@ export default function Post({ data }) {
     console.log(eve);
     if (eve.target.value === "*") {
       setBuyerFilter(sellerCase.buyers);
+      setFilterValue(eve.target.value);
     } else {
       const newFilter = sellerCase.buyers.filter(
         (buyer) => buyer.chosen === eve.target.value
       );
       setBuyerFilter(newFilter);
+      setFilterValue(eve.target.value);
     }
   };
 
@@ -101,11 +103,13 @@ export default function Post({ data }) {
     console.log(eve);
     if (eve === "*") {
       setBuyerFilter(sellerCase.buyers);
+      setFilterValue(eve);
     } else {
       const newFilter = sellerCase.buyers.filter(
         (buyer) => buyer.chosen === eve
       );
       setBuyerFilter(newFilter);
+      setFilterValue(eve);
     }
   };
 
@@ -168,13 +172,13 @@ export default function Post({ data }) {
             </div>
           </div>
         </div>
-        <button onClick={() => console.log(buyerFilter)}>Eyy</button>
         <div className="dashboard_filter_buttons">
           {width < 560 ? (
             <label>
               <span className={styles.label}>Select filter: </span>
               <Select
-                defaultValue={buyerFilter === undefined ? "*" : buyerFilter}
+                defaultValue={filterValue === undefined ? "*" : filterValue}
+                value={filterValue === undefined ? "*" : filterValue}
                 onChange={selectAdjustFilter}
                 options={[
                   { value: "*", label: "All buyers" },
@@ -185,7 +189,8 @@ export default function Post({ data }) {
             </label>
           ) : (
             <Radio.Group
-              defaultValue={buyerFilter === undefined ? "*" : buyerFilter}
+              defaultValue={filterValue === undefined ? "*" : filterValue}
+              value={filterValue === undefined ? "*" : filterValue}
               buttonStyle="solid"
               onChange={adjustFilter}
             >
