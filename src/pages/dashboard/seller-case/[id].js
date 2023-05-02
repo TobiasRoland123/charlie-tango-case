@@ -243,7 +243,7 @@ export async function getServerSideProps(context) {
 
   // Fetch post data from API using the ID parameter
   const res = await fetch(
-    `http://localhost:3000/api/supabase-to-broker-single?id=${id}`
+    `https://charlie-tango-case-ebon.vercel.app/api/supabase-to-broker-single?id=${id}`
   );
   const data = await res.json();
 
