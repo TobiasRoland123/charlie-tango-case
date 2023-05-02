@@ -16,7 +16,7 @@ export default function BuyerDetails(buyers) {
   const [Loading, setLoading] = useState(false);
   const [zipL, setZipL] = useState();
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
-  // const price = sellerDetails.price.toString();
+  const price = sellerDetails.price;
   const zip = sellerDetails.zip;
 
   const router = useRouter();
