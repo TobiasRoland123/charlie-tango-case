@@ -1,6 +1,6 @@
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import styles from "../pages/Home.module.css";
-import { Button, Space, Modal, Switch, Card } from "antd";
+import { Button, Space, Modal, Switch, Card, ConfigProvider } from "antd";
 import { useState, useEffect } from "react";
 import Anchor from "./Header/Anchor";
 
@@ -90,16 +90,16 @@ export default function SellerCard(props) {
             width: 300,
           }}
         >
-          {seller.buyers === null ? (
-            <h3>No buyers</h3>
-          ) : (
-            <h3>
-              {" "}
-              {`Chosen buyers: ${chosen} ( of ${seller.buyers.length} possible)`}
-            </h3>
-          )}
-          <p>{`Creation date: ${setDate(seller.created_at)}`}</p>
-          <strong>Contact info:</strong>
+          <small>
+            <i>{`Submission date: ${setDate(seller.created_at)}`}</i>
+          </small>
+          <h3>About the property:</h3>
+          <p>{`${seller.price
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK`}</p>
+          <p>{`${seller.size} m2`}</p>
+          <p>{`${seller.full_address}`}</p>
+          <h4>Contact info:</h4>
           <p>
             <a
               className="dashboard_atag"
@@ -111,32 +111,51 @@ export default function SellerCard(props) {
               {seller.phone}
             </a>
           </p>
-          <strong>About the property:</strong>
-          <p>{`${seller.price
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK`}</p>
-          <p>{`${seller.size} m2`}</p>
-          <p>{`${seller.full_address}`}</p>
-
-          <Anchor
-            href={`/dashboard/seller-case/${seller.id}`}
-            className="dashboard_anchor"
-          >
-            <Button type="primary" size={"small"}>
-              Open case
-            </Button>
-          </Anchor>
-          {seller.contacted === false ? (
-            <p>Not contacted</p>
+          {seller.buyers === null ? (
+            <h3>No buyers</h3>
           ) : (
-            <p>Contacted ✅</p>
+            <strong>
+              {" "}
+              {`Chosen buyers: ${chosen} ( of ${seller.buyers.length} possible)`}
+            </strong>
           )}
-
-          <Switch
-            checked={contacted ? true : false}
-            onChange={contactedOnChange}
-          />
-          <Button onClick={showModal}>Delete Case</Button>
+          <div className="contacted_seller_option">
+            {seller.contacted === false ? (
+              <div>
+                <p>{seller.name} has not been contacted.</p>
+                <small>
+                  <i>Check box when contacted</i>
+                </small>
+              </div>
+            ) : (
+              <p>{seller.name} has been contacted.</p>
+            )}
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: "#fec315",
+                },
+              }}
+            >
+              <Switch
+                checked={contacted ? true : false}
+                onChange={contactedOnChange}
+              />
+            </ConfigProvider>
+          </div>
+          <div className="test_box">
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimaryHover: "#f24040",
+                },
+              }}
+            >
+              <Button onClick={showModal} size="middle">
+                Delete Case
+              </Button>
+            </ConfigProvider>
+          </div>
           <Modal
             title="Do you want to delete this case?"
             open={open}
@@ -146,6 +165,23 @@ export default function SellerCard(props) {
           >
             <p>{modalText}</p>
           </Modal>
+          <Anchor
+            href={`/dashboard/seller-case/${seller.id}`}
+            className="dashboard_anchor"
+          >
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: "#fec315",
+                  colorText: "#000",
+                },
+              }}
+            >
+              <Button type="primary" size={"small"}>
+                See buyers
+              </Button>
+            </ConfigProvider>
+          </Anchor>
         </Card>
       </article>
     </>

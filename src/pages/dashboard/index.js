@@ -5,11 +5,13 @@ import Anchor from "@/components/Header/Anchor";
 import styles from "@/pages/Home.module.css";
 import { useState, useEffect } from "react";
 import SellerCard from "@/components/SellerCard";
-import { Avatar, Card, Skeleton, Switch } from "antd";
+import { Avatar, Card, Skeleton, Switch, Select, Radio } from "antd";
 
 export default function Dashboard() {
   const [sellers, setSellers] = useState("");
   const [deleteRun, setDeleteRun] = useState(0);
+  const [buyerFilter, setBuyerFilter] = useState("");
+  const [filterValue, setFilterValue] = useState();
 
   //GDPR DELETE
   // Data from superbase returns like this:
@@ -65,6 +67,7 @@ export default function Dashboard() {
         );
 
         setSellers(sortedData);
+        setBuyerFilter(sortedData);
       });
   }, [deleteRun]);
 
@@ -97,6 +100,32 @@ export default function Dashboard() {
     //   .then((data) => console.log(data));
   }
 
+  const adjustFilter = (eve) => {
+    console.log(eve);
+    if (eve.target.value === "*") {
+      setBuyerFilter(sellers);
+      setFilterValue(eve.target.value);
+    } else {
+      const newFilter = sellers.filter(
+        (seller) => seller.contacted === eve.target.value
+      );
+      setBuyerFilter(newFilter);
+      setFilterValue(eve.target.value);
+    }
+  };
+
+  const selectAdjustFilter = (eve) => {
+    console.log(eve);
+    if (eve === "*") {
+      setBuyerFilter(sellers);
+      setFilterValue(eve);
+    } else {
+      const newFilter = sellers.filter((seller) => seller.contacted === eve);
+      setBuyerFilter(newFilter);
+      setFilterValue(eve);
+    }
+  };
+
   // function sellerPatch(payload) {
   //   const updates = payload;
 
@@ -119,6 +148,9 @@ export default function Dashboard() {
         <title>Dashboard Overview | EDC</title>
       </Head>
       <div className="wrapper">
+        <Anchor className="dashboard_back_buttons" href={"../../"}>
+          &lsaquo; Back to Frontpage
+        </Anchor>
         <h1 className={styles.headline}>EDC broker dashboard</h1>
         <div className={styles.content}>
           <p>
@@ -127,6 +159,35 @@ export default function Dashboard() {
             about them and their chosen buyers.
           </p>
         </div>
+        <div className="dashboard_filter_buttons">
+          <div className="filterUnder768">
+            <label>
+              <span className={styles.label}>Select filter: </span>
+              <Select
+                defaultValue={filterValue === undefined ? "*" : filterValue}
+                value={filterValue === undefined ? "*" : filterValue}
+                onChange={selectAdjustFilter}
+                options={[
+                  { value: "*", label: "All sellers" },
+                  { value: true, label: "All contacted sellers" },
+                  { value: false, label: "Not contacted sellers" },
+                ]}
+              />
+            </label>
+          </div>
+          <div className="filterOver768">
+            <Radio.Group
+              defaultValue={filterValue === undefined ? "*" : filterValue}
+              value={filterValue === undefined ? "*" : filterValue}
+              buttonStyle="solid"
+              onChange={adjustFilter}
+            >
+              <Radio.Button value="*">All sellers</Radio.Button>
+              <Radio.Button value={true}>All contacted sellers</Radio.Button>
+              <Radio.Button value={false}>Not contacted sellers</Radio.Button>
+            </Radio.Group>
+          </div>
+        </div>
         <div className={`${styles.content}`}>
           <h2>Choose a seller</h2>
 
@@ -134,7 +195,7 @@ export default function Dashboard() {
             {sellers.length === 0 ? (
               <Card style={{ width: 300, marginTop: 16 }}></Card>
             ) : (
-              sellers.map((seller) => (
+              buyerFilter.map((seller) => (
                 <SellerCard
                   key={seller.id}
                   seller={seller}
