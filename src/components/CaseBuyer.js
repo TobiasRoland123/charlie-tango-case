@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card } from "antd";
+import { Card, Switch } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import styles from "../pages/Home.module.css";
 import { check } from "prettier";
@@ -8,11 +8,40 @@ import { Button, Space, Modal } from "antd";
 export default function PotentialBuyer(props) {
   // console.table(props.buyer);
   const [buyer, setBuyer] = useState(props.buyer);
+  const [sellerCase, setSellerCase] = useState(props.sellerCase);
+  const [contacted, setContacted] = useState(buyer.contacted);
 
   const handleClick = (e) => console.log(e);
-  // e.buyer === true ? setBuyer((e.buyer = false)) : setBuyer((e.buyer = true)));
 
-  // console.log("buyer", buyer);
+  function contactedOnChange() {
+    buyer.contacted ? (buyer.contacted = false) : (buyer.contacted = true);
+    // console.log("buyer.contacted is now:", buyer.contacted);
+
+    logger();
+
+    sellerPatch({ sellerCase, id: props.sellerCase.id });
+  }
+
+  function logger() {
+    setContacted(buyer.contacted);
+    console.log("sellerState:", contacted);
+  }
+
+  function sellerPatch(payload) {
+    const updates = payload;
+
+    console.log(`SellerPatch called with id: ${payload.id}`);
+    fetch("/api/patch-seller-case", {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+
+      body: JSON.stringify(updates),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
 
   return (
     <>
@@ -54,13 +83,18 @@ export default function PotentialBuyer(props) {
           )}
           <small>ID:{props.buyer.id}</small>
 
-          <Button
+          {/* <Button
             onClick={() => {
               props.sellerPatch({ name: "Anders", id: props.sellerCase.id });
             }}
           >
             buyer PATCH
-          </Button>
+          </Button> */}
+
+          <Switch
+            checked={contacted ? true : false}
+            onChange={contactedOnChange}
+          />
         </Card>
       </article>
     </>
