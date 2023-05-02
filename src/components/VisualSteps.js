@@ -9,27 +9,27 @@ import { useState, useEffect } from "react";
 import styles from "../pages/Home.module.css";
 
 export default function VisualSteps(props) {
-  const useWidth = () => {
-    const [width, setWidth] = useState(0);
-    const handleResize = () => setWidth(window.innerWidth);
-    useEffect(() => {
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, [width]);
-    return width;
-  };
+  //   const useWidth = () => {
+  //     const [width, setWidth] = useState(0);
+  //     const handleResize = () => setWidth(window.innerWidth);
+  //     useEffect(() => {
+  //       window.addEventListener("resize", handleResize);
+  //       return () => window.removeEventListener("resize", handleResize);
+  //     }, [width]);
+  //     return width;
+  //   };
 
-  // useEffect(() => {
-  //   const handleResizeWindow = () => setWidth(window.innerWidth);
-  //   if (typeof window !== "undefined") {
-  //     /* we're on the server */
-  //     window.addEventListener("resize", handleResizeWindow);
-  //     return () => {
-  //       window.removeEventListener("resize", handleResizeWindow);
-  //     };
-  //   }
-  // }, []);
-  // console.log(props.current);
+  //   // useEffect(() => {
+  //   //   const handleResizeWindow = () => setWidth(window.innerWidth);
+  //   //   if (typeof window !== "undefined") {
+  //   //     /* we're on the server */
+  //   //     window.addEventListener("resize", handleResizeWindow);
+  //   //     return () => {
+  //   //       window.removeEventListener("resize", handleResizeWindow);
+  //   //     };
+  //   //   }
+  //   // }, []);
+  //   // console.log(props.current);
 
   function checkStatus(val) {
     // console.log("props.step:", props.step);
@@ -45,9 +45,9 @@ export default function VisualSteps(props) {
   return (
     <>
       <Steps
-        className={styles.visualSteps}
+        className={styles.visualStepsHor}
         size="small"
-        direction={useWidth < 768 ? "vertical" : "horizontal"}
+        direction={"horizontal"}
         items={[
           {
             title: "Estate details",
