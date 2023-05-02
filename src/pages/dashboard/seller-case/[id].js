@@ -15,20 +15,29 @@ export default function Post({ data }) {
   const [sellerCase, setSellerCase] = useState(data.response[0]);
   const [buyerFilter, setBuyerFilter] = useState(sellerCase.buyers);
   const [filterValue, setFilterValue] = useState();
-  const [width, setWidth] = useState(window.innerWidth);
   // const sellerCase = data.response[0];
   const [zipL, setZipL] = useState();
 
-  useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    if (typeof window !== "undefined") {
-      /* we're on the server */
-      window.addEventListener("resize", handleResizeWindow);
-      return () => {
-        window.removeEventListener("resize", handleResizeWindow);
-      };
-    }
-  }, []);
+  const useWidth = () => {
+    const [width, setWidth] = useState(0);
+    const handleResize = () => setWidth(window.innerWidth);
+    useEffect(() => {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, [width]);
+    return width;
+  };
+
+  // useEffect(() => {
+  //   const handleResizeWindow = () => setWidth(window.innerWidth);
+  //   if (typeof window !== "undefined") {
+  //     /* we're on the server */
+  //     window.addEventListener("resize", handleResizeWindow);
+  //     return () => {
+  //       window.removeEventListener("resize", handleResizeWindow);
+  //     };
+  //   }
+  // }, []);
 
   useEffect(() => {
     fetch(`https://api.dataforsyningen.dk/postnumre/${sellerCase.zip}`)
@@ -176,7 +185,7 @@ export default function Post({ data }) {
           </div>
         </div>
         <div className="dashboard_filter_buttons">
-          {width < 560 ? (
+          {useWidth < 560 ? (
             <label>
               <span className={styles.label}>Select filter: </span>
               <Select

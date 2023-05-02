@@ -9,18 +9,26 @@ import { useState, useEffect } from "react";
 import styles from "../pages/Home.module.css";
 
 export default function VisualSteps(props) {
-  const [width, setWidth] = useState(window.innerWidth);
+  const useWidth = () => {
+    const [width, setWidth] = useState(0);
+    const handleResize = () => setWidth(window.innerWidth);
+    useEffect(() => {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, [width]);
+    return width;
+  };
 
-  useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    if (typeof window !== "undefined") {
-      /* we're on the server */
-      window.addEventListener("resize", handleResizeWindow);
-      return () => {
-        window.removeEventListener("resize", handleResizeWindow);
-      };
-    }
-  }, []);
+  // useEffect(() => {
+  //   const handleResizeWindow = () => setWidth(window.innerWidth);
+  //   if (typeof window !== "undefined") {
+  //     /* we're on the server */
+  //     window.addEventListener("resize", handleResizeWindow);
+  //     return () => {
+  //       window.removeEventListener("resize", handleResizeWindow);
+  //     };
+  //   }
+  // }, []);
   // console.log(props.current);
 
   function checkStatus(val) {
@@ -39,7 +47,7 @@ export default function VisualSteps(props) {
       <Steps
         className={styles.visualSteps}
         size="small"
-        direction={width < 768 ? "vertical" : "horizontal"}
+        direction={useWidth < 768 ? "vertical" : "horizontal"}
         items={[
           {
             title: "Estate details",

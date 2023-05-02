@@ -19,11 +19,21 @@ export default function EstateDetails() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
-  const [width, setWidth] = useState(window.innerWidth);
+  // const [width, setWidth] = useState(window.innerWidth);
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
   const [buyerID, setBuyerID] = useState("");
+
+  const useWidth = () => {
+    const [width, setWidth] = useState(0);
+    const handleResize = () => setWidth(window.innerWidth);
+    useEffect(() => {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, [width]);
+    return width;
+  };
 
   const showModal = (id) => {
     setOpen(true);
@@ -152,7 +162,7 @@ export default function EstateDetails() {
         </h3>
         <div
           className={
-            width > 769
+            useWidth > 769
               ? `${styles.content} ${styles.personalInfo1_1}`
               : styles.personalInfoFlex
           }
