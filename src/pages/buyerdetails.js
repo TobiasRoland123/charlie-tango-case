@@ -109,9 +109,13 @@ export default function BuyerDetails(buyers) {
             <div className={styles.content}>
               <h2>Estate Details:</h2>
               <p className="estateDetails_p">
-                <span>
-                  {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK
-                </span>
+                {price !== undefined ? (
+                  <span>
+                    {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} DKK
+                  </span>
+                ) : (
+                  ""
+                )}
               </p>
               <p className="estateDetails_p">
                 <span>{sellerDetails.size} &#13217;</span>
@@ -132,6 +136,7 @@ export default function BuyerDetails(buyers) {
                   buyer.chosen ? (
                     <li key={buyer.id}>
                       <span className="id_area">Buyer ID: {buyer.id}</span>
+
                       <span className="budget_area">
                         (
                         {buyer.maxPrice
