@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         Prefer: "return=representation",
         apikey: process.env.SUPABASE_KEY,
       },
-      body: JSON.stringify(req.body.sellerCase),
+      body: JSON.stringify(req.body),
     }
   )
     .then((res) => res.json())

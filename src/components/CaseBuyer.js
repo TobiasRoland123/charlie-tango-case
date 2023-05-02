@@ -19,7 +19,7 @@ export default function PotentialBuyer(props) {
 
     logger();
 
-    sellerPatch({ sellerCase, id: props.sellerCase.id });
+    sellerPatch({ ...sellerCase, id: props.sellerCase.id });
   }
 
   function logger() {
