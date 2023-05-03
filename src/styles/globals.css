@@ -1,5 +1,7 @@
 @import "fonts.css";
 
+/* VAR FILES */
+
 :root {
   --dark-blue: #0d2e4d;
   --blue: #164573; /* Primary color; */
