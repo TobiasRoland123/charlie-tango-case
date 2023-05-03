@@ -146,11 +146,21 @@ export default function PotentialBuyer(props) {
             <p className="chosen_explainer_left">
               <small>ID:{props.buyer.id}</small>
             </p>
-
-            <Switch
-              checked={contacted ? true : false}
-              onChange={contactedOnChange}
-            />
+            <div className="buyer_contacted_switch">
+              <p>
+                <i>
+                  {props.buyer.contacted === true
+                    ? "Buyer has been contacted."
+                    : "Buyer has not been contacted."}
+                </i>
+              </p>
+              <div>
+                <Switch
+                  checked={contacted ? true : false}
+                  onChange={contactedOnChange}
+                />
+              </div>
+            </div>
           </div>
         </Card>
       </article>

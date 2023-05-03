@@ -283,6 +283,15 @@ body {
   background-color: var(--grey) !important;
 }
 
+.buyer_contacted_switch {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.buyer_contacted_switch p {
+  margin-bottom: 0;
+}
+
 @media screen and (width < 768px) {
   .estateDetails_p {
     display: grid;
