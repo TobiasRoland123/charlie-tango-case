@@ -10,7 +10,7 @@ export default function Done() {
   const [sellerDetails, setSellerDetails] = useContext(SellerInformation);
 
   function sendToSupabase() {
-    console.log(`send to supabase activatet`);
+    // console.log(`send to supabase activatet`);
     fetch("/api/seller-to-supabase", {
       method: "POST",
       headers: {

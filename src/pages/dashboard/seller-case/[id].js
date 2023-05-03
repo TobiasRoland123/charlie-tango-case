@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { estateTypes } from "@/data/estateTypes";
 import { stringify } from "querystring";
 import CaseBuyer from "@/components/CaseBuyer";
+import Anchor from "@/components/Header/Anchor";
 
 export default function Post({ data }) {
   const router = useRouter();
@@ -17,6 +18,8 @@ export default function Post({ data }) {
   const [filterValue, setFilterValue] = useState();
   // const sellerCase = data.response[0];
   const [zipL, setZipL] = useState();
+
+  const sellerCaseNumber = sellerCase.id;
 
   // const useWidth = () => {
   //   const [width, setWidth] = useState(0);
@@ -128,10 +131,13 @@ export default function Post({ data }) {
   return (
     <div>
       <Head>
-        <title>Seller case | {sellerCase.id} </title>
+        <title>Seller case | {sellerCaseNumber} </title>
       </Head>
 
       <div className="wrapper">
+        <Anchor className="dashboard_back_buttons" href={"../../dashboard"}>
+          &lsaquo; Back to Dashboard
+        </Anchor>
         <h1 className={styles.headline}>{sellerCase.name} </h1>
         <div className={styles.content}>
           <div className={styles.grid_1_2}>

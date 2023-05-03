@@ -1,5 +1,7 @@
 @import "fonts.css";
 
+/* VAR FILES */
+
 :root {
   --dark-blue: #0d2e4d;
   --blue: #164573; /* Primary color; */
@@ -17,7 +19,7 @@
   --yellow: #fec315; /* Accent color; */
   --white: #fff;
   --black: #000;
-  --light-green: #d3f0c08d;
+  --light-green: #f2fdea8d;
 
   /* Fonts */
   --font-sans: "Lato", sans-serif;
@@ -39,7 +41,7 @@ html {
 }
 
 main {
-  padding-top: 1em;
+  padding-block: 1em 2em;
 }
 
 body {
@@ -73,6 +75,11 @@ body {
   bottom: 20px;
   left: 20px;
   color: var(--blue);
+  transition: all 300ms ease;
+}
+
+.link--dashboard:hover {
+  color: var(--hover);
 }
 
 .estateDetails_p {
@@ -99,6 +106,15 @@ body {
   color: var(--black);
 }
 
+.buyer_card_contacted .ant-card .ant-card-head {
+  border-bottom: 1px solid var(--dusty-blue-lighter);
+}
+
+.buyer_card_contacted .ant-card .ant-card-body,
+.dashboard_sellerCards .ant-card .ant-card-body {
+  padding: 0.5rem 1.5rem 1rem;
+}
+
 .buyer_card_chosen .anticon {
   color: var(--black);
 }
@@ -116,6 +132,11 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
   gap: 0.5em;
+}
+
+.test_box {
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard_chosen_container li {
@@ -231,7 +252,35 @@ body {
 
 .familyMemberBlock {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
+}
+
+.contacted_seller_option {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  margin-block: 0.75rem;
+}
+
+.contacted_seller_option p {
+  margin-bottom: 0;
+}
+
+.dashboard_back_buttons {
+  border: 1px solid var(--blue);
+  padding: 0.5rem 1.2rem;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.dashboard_back_buttons:hover {
+  background-color: var(--dusty-blue);
+  border-color: var(--dusty-blue);
+}
+
+.ant-input-number-group-addon {
+  background-color: var(--grey) !important;
 }
 
 @media screen and (width < 768px) {

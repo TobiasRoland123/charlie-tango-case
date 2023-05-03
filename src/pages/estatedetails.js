@@ -144,8 +144,14 @@ export default function EstateDetails() {
       estateType,
       full_address: fullAdress,
     };
-    {
-      !zipValidator.navn ? showModal() : updateSellerInformation(e);
+    if (sellerDetails.zip === undefined || sellerDetails.zip !== zip) {
+      {
+        !zipValidator.navn ? showModal() : updateSellerInformation(e);
+      }
+    } else {
+      router.push(
+        `${e.target.action}?price=${price}&size=${size}&zipCode=${zip}&estateType=${estateType}`
+      );
     }
   }
 
@@ -163,15 +169,17 @@ export default function EstateDetails() {
     );
   }
 
-  const showSearch = () => console.log(storedSearch);
-  const showAdress = () => console.log(adress);
-
   return (
     <>
       <Head>
         <title>Estate Details | EDC</title>
       </Head>
-      <Modal title="Address is not correct" open={isModalOpen} onOk={handleOk}>
+      <Modal
+        title="Address is not correct"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleOk}
+      >
         <p>Please make sure the full address is correct.</p>
         <p>It needs to include:</p>
         <ul>
@@ -202,12 +210,13 @@ export default function EstateDetails() {
                   className={styles.formInput}
                   name="price"
                   formatter={(value) =>
-                    `DKK ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    value.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
                   }
-                  parser={(value) => value.replace(/\s?DKK\s?|(\.)+/g, "")}
+                  parser={(value) => value.replace(/(\.)+/g, "")}
                   onChange={priceChanged}
                   value={price}
                   required
+                  addonAfter="DKK"
                 />
               </label>
               <label>
@@ -229,7 +238,11 @@ export default function EstateDetails() {
                   className={styles.formInput}
                   showSearch
                   search={storedSearch}
-                  // search={fullAdress}
+                  defaultValue={
+                    sellerDetails.full_address !== undefined
+                      ? sellerDetails.full_address
+                      : ""
+                  }
                   defaultActiveFirstOption="true"
                   optionFilterProp="children"
                   onChange={zipChanged}
@@ -274,8 +287,6 @@ export default function EstateDetails() {
           </div>
         </div>
       </div>
-      <button onClick={showSearch}>Show Search</button>
-      <button onClick={showAdress}>Show Address</button>
     </>
   );
 }

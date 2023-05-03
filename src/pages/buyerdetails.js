@@ -2,7 +2,7 @@ import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
-import { Avatar, Card, Skeleton, Switch } from "antd";
+import { Avatar, Card, Skeleton, Switch, Badge } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { SellerInformation } from "./_app";
 import { estateTypes } from "@/data/estateTypes";
@@ -99,8 +99,8 @@ export default function BuyerDetails(buyers) {
       <VisualSteps step={1} />
       <div className="wrapper">
         <h3 className={styles.headline_explainer}>
-          We found potential buyers, who matches your estate details. Click on
-          the buyers that you want us to contact for you!
+          We found potential buyers, who is looking for estates matching yours!{" "}
+          {"\n"} Click on the buyers that you want us to contact on your behalf.
         </h3>
         <div className={styles.grid_1_2}>
           {zipL === "" ? (
