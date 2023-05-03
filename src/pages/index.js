@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Anchor from "@/components/Header/Anchor";
 import styles from "./Home.module.css";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -19,6 +20,17 @@ export default function Home() {
         <Anchor href="/estatedetails">
           <button className={styles.button}>Find buyers for your estate</button>
         </Anchor>
+      </div>
+
+      <div>
+        <Image
+          className={styles.estateDetails_end_image}
+          src="https://webdesam.dk/kea/charlie_tango_case/broker_bunny.jpg"
+          alt="Couple standing together, holding eachother"
+          placeholder="blurDataUrl"
+          width="5760"
+          height="3840"
+        />
       </div>
       <div className="wrapper">
         <h4>
