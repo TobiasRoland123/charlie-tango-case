@@ -182,6 +182,10 @@ body {
   bottom: 0;
 }
 
+.ant-btn {
+  margin: 2rem 0 1rem;
+}
+
 .dashboard_atag {
   color: var(--black);
   text-decoration: none;

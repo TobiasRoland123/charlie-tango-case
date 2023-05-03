@@ -126,17 +126,23 @@ export default function SellerCard(props) {
               Open case
             </Button>
           </Anchor>
-          {seller.contacted === false ? (
-            <p>Not contacted</p>
-          ) : (
-            <p>Contacted ✅</p>
-          )}
 
-          <Switch
-            checked={contacted ? true : false}
-            onChange={contactedOnChange}
-          />
-          <Button onClick={showModal}>Delete Case</Button>
+          <div className="contacted-wrapper">
+            {seller.contacted === false ? (
+              <small>Not contacted</small>
+            ) : (
+              <small>Contacted ✅</small>
+            )}
+
+            <Switch
+              checked={contacted ? true : false}
+              onChange={contactedOnChange}
+            />
+          </div>
+
+          <Button block onClick={showModal}>
+            Delete Case
+          </Button>
           <Modal
             title="Do you want to delete this case?"
             open={open}
